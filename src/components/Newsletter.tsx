@@ -19,7 +19,7 @@ export const Newsletter = () => {
           </span>
         </h3>
         <p className="text-xl text-muted-foreground text-center mt-4 mb-8">
-          Lorem ipsum dolor sit amet consectetur.
+         Stay updated with Python Cameroon Community.
         </p>
 
         <form
@@ -27,7 +27,7 @@ export const Newsletter = () => {
           onSubmit={handleSubmit}
         >
           <Input
-            placeholder="leomirandadev@gmail.com"
+            placeholder="pythoncameroon@gmail.com"
             className="bg-muted/50 dark:bg-muted/80 "
             aria-label="email"
           />

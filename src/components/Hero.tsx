@@ -1,8 +1,15 @@
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export const Hero = () => {
+  const [mapUrl, setMapUrl] = useState("");
+
+  useEffect(() => {
+    setMapUrl("http://127.0.0.1:5000");
+  }, []);
+
   return (
     <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
       <div className="text-center lg:text-start space-y-6">
@@ -43,7 +50,13 @@ export const Hero = () => {
           </a>
         </div>
       </div>
-      <div className="shadow"></div>
+
+      {/* Cameroon Map Display */}
+      <div className="shadow flex justify-center items-center">
+        {mapUrl && (
+          <img src={mapUrl} alt="Cameroon Map" className="w-full max-w-md rounded-lg" />
+        )}
+      </div>
     </section>
   );
 };

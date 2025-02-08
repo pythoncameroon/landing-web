@@ -1,5 +1,5 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { MagnifierIcon, WalletIcon, ChartIcon } from "./Icons";
+import { ChartIcon, WalletIcon, MagnifierIcon } from "./Icons";
 import cubeLeg from "../assets/cube-leg.png";
 
 interface ServiceProps {
@@ -12,19 +12,19 @@ const serviceList: ServiceProps[] = [
   {
     title: "Code Collaboration",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    icon: <ChartIcon />,
+      "Enhance team productivity with Python-based tools for version control, CI/CD, and collaborative coding.",
+    icon: <ChartIcon />, 
   },
   {
     title: "Project Management",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    icon: <WalletIcon />,
+      "Streamline workflows with Python-powered task automation, reporting, and data visualization.",
+    icon: <WalletIcon />, 
   },
   {
     title: "Task Automation",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Automate repetitive tasks using Python scripts for DevOps, system administration, and data processing.",
     icon: <MagnifierIcon />,
   },
 ];
@@ -42,8 +42,7 @@ export const Services = () => {
           </h2>
 
           <p className="text-muted-foreground text-xl mt-4 mb-8 ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-            dolor.
+            Empowering teams with Python-driven efficiency, automation, and collaboration.
           </p>
 
           <div className="flex flex-col gap-8">

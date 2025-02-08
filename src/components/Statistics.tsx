@@ -6,20 +6,20 @@ export const Statistics = () => {
 
   const stats: statsProps[] = [
     {
-      quantity: "2.7K+",
-      description: "Users",
+      quantity: "5K+",
+      description: "Python Developers",
     },
     {
-      quantity: "1.8K+",
-      description: "Subscribers",
+      quantity: "3.2K+",
+      description: "AI Models Deployed",
     },
     {
-      quantity: "112",
-      description: "Downloads",
+      quantity: "250+",
+      description: "Automation Scripts",
     },
     {
-      quantity: "4",
-      description: "Products",
+      quantity: "10+",
+      description: "Python-Based Products",
     },
   ];
 
@@ -31,7 +31,7 @@ export const Statistics = () => {
             key={description}
             className="space-y-2 text-center"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold ">{quantity}</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold">{quantity}</h2>
             <p className="text-xl text-muted-foreground">{description}</p>
           </div>
         ))}
