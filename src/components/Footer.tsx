@@ -41,19 +41,10 @@ export const Footer = () => {
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href=" https://linkedin.com/company/PythonCameroon"
               className="opacity-60 hover:opacity-100"
             >
-              Facebook
-            </a>
-          </div>
-          <div>
-            <a
-              rel="noreferrer noopener"
-              href="#"
-              className="opacity-60 hover:opacity-100"
-            >
-              Instagram
+              Linkedln
             </a>
           </div>
         </div>
@@ -86,7 +77,7 @@ export const Footer = () => {
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href="https://discord.gg/S4gAFg8Q"
               className="opacity-60 hover:opacity-100"
             >
               Discord
@@ -96,10 +87,10 @@ export const Footer = () => {
           <div>
             <a
               rel="noreferrer noopener"
-              href="#"
+              href=" https://chat.whatsapp.com/Ckc80ophGEH0NJFmZAzDMr"
               className="opacity-60 hover:opacity-100"
             >
-              Twitch
+              WhatsApp
             </a>
           </div>
         </div>

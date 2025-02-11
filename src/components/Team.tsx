@@ -7,12 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Linkedin, Github, X } from "lucide-react";
 
 interface TeamProps {
   imageUrl: string;
   name: string;
   position: string;
+  description: string;
   socialNetworks: SociaNetworkslProps[];
 }
 
@@ -23,71 +24,102 @@ interface SociaNetworkslProps {
 
 const teamList: TeamProps[] = [
   {
-    imageUrl: "https://i.pravatar.cc/150?img=35",
-    name: "Emma Smith",
-    position: "Product Manager",
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHnmVB6FQ2UQA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726093532105?e=1744848000&v=beta&t=sJUwfm7EKodWlW-yPcahAIAuktZ3s1NAHr_Dxap68e8",
+    name: "Steve Yonkue",
+    position: "Backend and Cloud Engineer",
+    description: "Expert in Python and backend development.",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
+        url: "https://www.linkedin.com/in/yokwejuste/",
       },
       {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
+        name: "Github",
+        url: "https://github.com/yokwejuste",
       },
       {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
+        name: "X",
+        url: "https://x.com/yokwejuste",
       },
     ],
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=60",
-    name: "John Doe",
-    position: "Tech Lead",
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHmVQ509cUVaA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718527201412?e=1744848000&v=beta&t=KcXhaBXUij0f5Qkc7zgmHNw86ecmWXhOXUhAFBXDiAA",
+    name: "Edmond Makolle",
+    position: "Software Engineer",
+    description: "Passionate about UI/UX and React.js.",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
+        url: "https://www.linkedin.com/in/edmond-makolle-99716b1a2/",
       },
       {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
+        name: "Github",
+        url: "https://github.com/Edmond22-prog",
       },
       {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
+        name: "X",
+        url: "https://x.com/EdmondMakolle",
       },
     ],
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=36",
-    name: "Ashley Ross",
-    position: "Frontend Developer",
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQE_tzGrQnf2QQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1704332517739?e=1744848000&v=beta&t=zdmpiFY5KuuMPOl6y-GQC_hnZ4QRcTkjGNfuuj4DUdI",
+    name: "Loni Tande",
+    position: "Data Engineer",
+    description: "Building AI models and deep learning systems.",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
+        url: "https://www.linkedin.com/in/lonitandemiriamebenye/",
       },
-
       {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
+        name: "Github",
+        url: "https://github.com/Mimi97-aqua/",
+      },
+      {
+        name: "X",
+        url: "https://x.com/VesekeM",
       },
     ],
   },
   {
     imageUrl: "https://i.pravatar.cc/150?img=17",
-    name: "Bruce Rogers",
-    position: "Backend Developer",
+    name: "Joel Fah",
+    position: "Cybersecurity Engineer",
+    description: "Securing applications and ethical hacking.",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
+        url: "https://www.linkedin.com/in/imajin/",
       },
       {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
+        name: "Github",
+        url: "https://github.com/Joel-Fah",
+      },
+      {
+        name: "X",
+        url: "https://x.com/FahDejon",
+      },
+    ],
+  },
+  {
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQETL5spp-s2xg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730360240208?e=1744848000&v=beta&t=I_NbXLR9bh3_gauXxvGv73MCROlS4vhnb5hiSm95RzY",
+    name: "ImaJin (Jr Patrick)",
+    position: "DevOps Engineer",
+    description: "Automating deployments and managing cloud infrastructure.",
+    socialNetworks: [
+      {
+        name: "Linkedin",
+        url: "www.linkedin.com/in/imajin14",
+      },
+      {
+        name: "Github",
+        url: "https://github.com/ImaJin14",
+      },
+      {
+        name: "X",
+        url: "https://x.com/Jr_Patrick14",
       },
     ],
   },
@@ -98,35 +130,31 @@ export const Team = () => {
     switch (iconName) {
       case "Linkedin":
         return <Linkedin size="20" />;
-
-      case "Facebook":
-        return <Facebook size="20" />;
-
-      case "Instagram":
-        return <Instagram size="20" />;
+      case "Github":
+        return <Github size="20" />;
+      case "X":
+        return <X size="24" />;
     }
   };
 
   return (
     <section
       id="team"
-      className="container py-24 sm:py-32"
+      className="container py-20 sm:py-28"
     >
       <h2 className="text-3xl md:text-4xl font-bold">
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Our Dedicated{" "}
+          Meet the Python Cameroon Team
         </span>
-        Crew
       </h2>
 
       <p className="mt-4 mb-10 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        Dedicated team advancing Python development in Cameroon.
       </p>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-10">
+      <div className="grid md:grid-cols-2.5 lg:grid-cols-5 gap-9 gap-y-10">
         {teamList.map(
-          ({ imageUrl, name, position, socialNetworks }: TeamProps) => (
+          ({ imageUrl, name, position, description, socialNetworks }: TeamProps) => (
             <Card
               key={name}
               className="bg-muted/50 relative mt-8 flex flex-col justify-center items-center"
@@ -144,7 +172,7 @@ export const Team = () => {
               </CardHeader>
 
               <CardContent className="text-center pb-2">
-                <p>dedicated!</p>
+                <p>{description}</p>
               </CardContent>
 
               <CardFooter>
