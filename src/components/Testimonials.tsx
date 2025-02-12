@@ -21,32 +21,32 @@ export const Applications = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
           {
-            image: "/src/assets/web-development.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/web-development.png",
             title: "Web Development",
             description: "Python is widely used for building websites with frameworks like Django and Flask.",
           },
           {
-            image: "/src/assets/data-science.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/data-science.png",
             title: "Data Science",
             description: "Python is the go-to language for data analysis, visualization, and manipulation using Pandas and NumPy.",
           },
           {
-            image: "/src/assets/machine-learning.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/machine-learning.png",
             title: "Machine Learning & AI",
             description: "Python is essential in AI with libraries like TensorFlow and scikit-learn.",
           },
           {
-            image: "/src/assets/automation.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/automation.png",
             title: "Automation & Scripting",
             description: "Automate repetitive tasks using Python scripts, Selenium, and BeautifulSoup.",
           },
           {
-            image: "/src/assets/cybersecurity.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/cybersecurity.png",
             title: "Cybersecurity",
             description: "Python is used in ethical hacking, penetration testing, and security analysis.",
           },
           {
-            image: "/src/assets/game-development.png",
+            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/game-development.png",
             title: "Game Development",
             description: "Python is used to create games with frameworks like Pygame and Panda3D.",
           },
