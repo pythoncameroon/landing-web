@@ -25,9 +25,9 @@ interface SociaNetworkslProps {
 const teamList: TeamProps[] = [
   {
     imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHnmVB6FQ2UQA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726093532105?e=1744848000&v=beta&t=sJUwfm7EKodWlW-yPcahAIAuktZ3s1NAHr_Dxap68e8",
-    name: "Steve Yonkue",
+    name: "Steve Yonkeu",
     position: "Backend and Cloud Engineer",
-    description: "Expert in Python and backend development.",
+    description: "A backend engineer and tech community leader, Co-founder of Django Cameroon and Python Cameroon.",
     socialNetworks: [
       {
         name: "Linkedin",
@@ -46,8 +46,8 @@ const teamList: TeamProps[] = [
   {
     imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHmVQ509cUVaA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718527201412?e=1744848000&v=beta&t=KcXhaBXUij0f5Qkc7zgmHNw86ecmWXhOXUhAFBXDiAA",
     name: "Edmond Makolle",
-    position: "Software Engineer",
-    description: "Passionate about UI/UX and React.js.",
+    position: "Backend Engineer",
+    description: "Python backend engineer focused on server logic, databases, and performance.",
     socialNetworks: [
       {
         name: "Linkedin",
@@ -67,7 +67,7 @@ const teamList: TeamProps[] = [
     imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQE_tzGrQnf2QQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1704332517739?e=1744848000&v=beta&t=zdmpiFY5KuuMPOl6y-GQC_hnZ4QRcTkjGNfuuj4DUdI",
     name: "Loni Tande",
     position: "Data Engineer",
-    description: "Building AI models and deep learning systems.",
+    description: "Passionate about AI models, deep learning systems, Big DATA and Robotics.",
     socialNetworks: [
       {
         name: "Linkedin",
@@ -84,14 +84,14 @@ const teamList: TeamProps[] = [
     ],
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=17",
+    imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQHb_R-FzrNhgw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1712785496110?e=1744848000&v=beta&t=rpf_JSd4x0Wrpl6rzBMhf5B7klBrkJMNVR_QCG2Yie4",
     name: "Joel Fah",
-    position: "Cybersecurity Engineer",
-    description: "Securing applications and ethical hacking.",
+    position: "UI/UX Designer",
+    description: "Passionate about UI/UX Designs",
     socialNetworks: [
       {
         name: "Linkedin",
-        url: "https://www.linkedin.com/in/imajin/",
+        url: "https://www.linkedin.com/in/joelfah/",
       },
       {
         name: "Github",

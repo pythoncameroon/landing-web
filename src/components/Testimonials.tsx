@@ -21,32 +21,32 @@ export const Applications = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/web-development.png",
+            image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Web Development",
             description: "Python is widely used for building websites with frameworks like Django and Flask.",
           },
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/data-science.png",
+            image: "https://plus.unsplash.com/premium_photo-1661878265739-da90bc1af051?q=80&w=1986&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Data Science",
             description: "Python is the go-to language for data analysis, visualization, and manipulation using Pandas and NumPy.",
           },
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/machine-learning.png",
+            image: "https://plus.unsplash.com/premium_photo-1681121353159-3278949ff491?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Machine Learning & AI",
             description: "Python is essential in AI with libraries like TensorFlow and scikit-learn.",
           },
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/automation.png",
+            image: "https://plus.unsplash.com/premium_photo-1676637656198-e2bbf752103a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Automation & Scripting",
             description: "Automate repetitive tasks using Python scripts, Selenium, and BeautifulSoup.",
           },
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/cybersecurity.png",
+            image: "https://plus.unsplash.com/premium_photo-1661877737564-3dfd7282efcb?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Cybersecurity",
             description: "Python is used in ethical hacking, penetration testing, and security analysis.",
           },
           {
-            image: "https://github.com/pythoncameroon/landing-web/blob/main/src/assets/game-development.png",
+            image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             title: "Game Development",
             description: "Python is used to create games with frameworks like Pygame and Panda3D.",
           },

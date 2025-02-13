@@ -1,34 +1,19 @@
-import { Radar } from "lucide-react";
-
 interface SponsorProps {
-  icon: JSX.Element;
+  icon: string; 
   name: string;
+  link: string;
 }
 
 const sponsors: SponsorProps[] = [
   {
-    icon: <Radar size={34} />,
-    name: "Sponsor 1",
+    icon: "https://avatars.githubusercontent.com/u/142497557?s=200&v=4",
+    name: "Django Cameroon",
+    link: "https://github.com/djangocameroon",
   },
   {
-    icon: <Radar size={34} />,
-    name: "Sponsor 2",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 3",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 4",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 5",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Sponsor 6",
+    icon: "https://avatars.githubusercontent.com/u/183505611?s=200&v=4", 
+    name: "Angular Cameroon",
+    link: "https://github.com/ngcameroon",
   },
 ];
 
@@ -39,17 +24,19 @@ export const Sponsors = () => {
       className="container pt-24 sm:py-32"
     >
       <h2 className="text-center text-md lg:text-xl font-bold mb-8 text-primary">
-        Investors and founders
+        Partnering Organisations!
       </h2>
 
-      <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
-        {sponsors.map(({ icon, name }: SponsorProps) => (
+      <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+        {sponsors.map(({ icon, name, link }: SponsorProps) => (
           <div
             key={name}
-            className="flex items-center gap-1 text-muted-foreground/60"
+            className="text-center"
           >
-            <span>{icon}</span>
-            <h3 className="text-xl  font-bold">{name}</h3>
+            <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2">
+              <img src={icon} alt={`${name} logo`} className="w-16 h-16" /> {/* Increased icon size */}
+              <h3 className="text-lg font-semibold">{name}</h3> {/* Centered name under icon */}
+            </a>
           </div>
         ))}
       </div>
