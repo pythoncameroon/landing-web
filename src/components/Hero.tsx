@@ -1,8 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useAnimation, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 
+// Define interfaces for component props
+interface AnimatedCharacterProps {
+  character: string;
+  delay?: number;
+}
+
+interface SplitTextAnimationProps {
+  text: string;
+  className?: string;
+  delay?: number;
+}
+
+interface EnhancedImageProps {
+  src: string;
+  alt: string;
+}
+
 // Animated character component for text effects
-const AnimatedCharacter = ({ character, delay = 0 }) => {
+const AnimatedCharacter = ({ character, delay = 0 }: AnimatedCharacterProps) => {
   return (
     <motion.span
       initial={{ opacity: 0, y: 20 }}
@@ -20,10 +37,10 @@ const AnimatedCharacter = ({ character, delay = 0 }) => {
 };
 
 // Split text into animated characters
-const SplitTextAnimation = ({ text, className, delay = 0 }) => {
+const SplitTextAnimation = ({ text, className = "", delay = 0 }: SplitTextAnimationProps) => {
   return (
     <span className={className}>
-      {text.split("").map((char, index) => (
+      {text.split("").map((char: string, index: number) => (
         <AnimatedCharacter 
           key={index} 
           character={char} 
@@ -84,8 +101,8 @@ const BubbleBackground = () => {
 };
 
 // Enhanced image component with effects
-const EnhancedImage = ({ src, alt }) => {
-  const imageRef = useRef(null);
+const EnhancedImage = ({ src, alt }: EnhancedImageProps) => {
+  const imageRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
@@ -94,7 +111,9 @@ const EnhancedImage = ({ src, alt }) => {
   const glowX = useTransform(mouseX, [-300, 300], [0, 100], { clamp: false });
   const glowY = useTransform(mouseY, [-300, 300], [0, 100], { clamp: false });
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imageRef.current) return;
+    
     const rect = imageRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -193,8 +212,8 @@ const EnhancedImage = ({ src, alt }) => {
 };
 
 export const Hero = () => {
-  const [mapUrl, setMapUrl] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [mapUrl, setMapUrl] = useState<string>("");
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const controls = useAnimation();
   
   useEffect(() => {
@@ -297,7 +316,7 @@ export const Hero = () => {
               className="inline-block bg-gradient-to-r from-[#FFD43B] to-[#FFE873] text-transparent bg-clip-text relative"
               variants={wordVariants}
             >
-              <SplitTextAnimation text="Python" delay={0.4} />
+              <SplitTextAnimation text="Python" className="" delay={0.4} />
               <motion.span
                 className="absolute -inset-1 rounded-lg opacity-30 bg-[#FFD43B]/10"
                 animate={{ 
@@ -332,7 +351,7 @@ export const Hero = () => {
               }}
               style={{ backgroundSize: "200% 100%" }}
             >
-              <SplitTextAnimation text="Fun!" delay={0.8} />
+              <SplitTextAnimation text="Fun!" className="" delay={0.8} />
               <motion.span
                 className="absolute -inset-1 rounded-lg opacity-30 bg-[#306998]/10"
                 animate={{ 

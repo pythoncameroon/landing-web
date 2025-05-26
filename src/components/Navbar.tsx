@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -18,7 +18,7 @@ import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
 import { LanguageSwitcher } from "./language"; // Import Language Switcher
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface RouteProps {
   href: string;
@@ -40,49 +40,6 @@ const routeList: RouteProps[] = [
   },
 ];
 
-const FuturisticButtonEffect = ({ children, className = "" }) => {
-  const buttonRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!buttonRef.current) return;
-    const rect = buttonRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  };
-  
-  return (
-    <motion.div 
-      ref={buttonRef} 
-      onMouseMove={handleMouseMove}
-      className={`relative overflow-hidden group ${className}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-    >
-      <motion.div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100"
-        style={{
-          background: useTransform(
-            [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(circle 120px at ${x}px ${y}px, rgba(var(--primary-rgb), 0.15), transparent 100%)`
-          ),
-        }}
-      />
-      <motion.div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-sm"
-        style={{
-          background: useTransform(
-            [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(circle 50px at ${x}px ${y}px, rgba(var(--primary-rgb), 0.2), transparent 100%)`
-          ),
-        }}
-      />
-      {children}
-    </motion.div>
-  );
-};
 
 // Particle effect for the logo
 const ParticleEffect = () => {

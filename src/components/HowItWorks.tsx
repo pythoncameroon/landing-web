@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
-import { motion, useAnimation, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -36,7 +36,11 @@ const features: FeatureProps[] = [
   },
 ];
 
-const AnimatedFeatureCard = ({ icon, title, description, index }) => {
+interface AnimatedFeatureCardProps extends FeatureProps {
+  index: number;
+}
+
+const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatureCardProps) => {
   const cardRef = useRef(null);
   const isInView = useInView(cardRef, { once: false, amount: 0.2 });
   
@@ -161,7 +165,6 @@ const AnimatedFeatureCard = ({ icon, title, description, index }) => {
 export const HowItWorks = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
-  const controls = useAnimation();
   
   return (
     <motion.section

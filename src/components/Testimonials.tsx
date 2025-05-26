@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code2, Database, Brain, Zap, Shield, Gamepad2, Sparkles, ArrowRight } from "lucide-react";
 
 interface ApplicationProps {
@@ -18,7 +18,7 @@ interface ApplicationProps {
 
 export const Applications = () => {
   const [hovered, setHovered] = useState<number | null>(null);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
@@ -495,7 +495,21 @@ export const Applications = () => {
             className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-full font-medium relative overflow-hidden group"
             whileHover={{ boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
           >
-            <span className="relative z-10">Join Python Cameroon</span>
+            <motion.a
+              href="https://github.com/pythoncameroon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-full font-medium relative overflow-hidden group"
+              whileHover={{ boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
+            >
+              <span className="relative z-10">Join Python Cameroon</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-500 to-primary"
+                initial={{ x: "100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.a>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-purple-500 to-primary"
               initial={{ x: "100%" }}

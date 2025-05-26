@@ -144,7 +144,6 @@ export const About = () => {
               z: 50
             }}
           >
-            {/* Glowing background for image */}
             <motion.div 
               className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 -z-10"
               animate={{
@@ -155,14 +154,14 @@ export const About = () => {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               style={{ filter: "blur(20px)" }}
             />
-            
-            {/* Rotating ring effect */}
+
             <motion.div
               className="absolute -inset-2 rounded-xl border border-primary/30 -z-10"
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
-              <motion.img
+
+            <motion.img
               src={pilot}
               alt="Python Illustration"
               className="w-[400px] md:w-[450px] lg:w-[500px] object-contain rounded-lg relative z-10"
@@ -172,8 +171,7 @@ export const About = () => {
               }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
-            
-            {/* Shine effect */}
+
             <motion.div
               className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
               initial={{ x: "-100%" }}
@@ -218,10 +216,9 @@ export const About = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 1.1, duration: 0.5 }}
-                  animate={{
-                    backgroundPosition: ["0% center", "100% center", "0% center"],
+                  style={{
+                    backgroundSize: "200% auto"
                   }}
-                  style={{ backgroundSize: "200% auto" }}
                 >
                   About{" "}
                   
@@ -239,72 +236,11 @@ export const About = () => {
                     transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
                   />
                 </motion.span>
-                
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 1.3, duration: 0.5 }}
-                >
-                  Our Python community
-                </motion.span>
               </motion.h2>
-              
-              {/* Enhanced paragraph with word-by-word animation */}
-              <motion.div
-                className="text-xl text-muted-foreground mt-4 relative"
-                initial={{ opacity: 0, y: 20 }}
-                animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ delay: 1.5, duration: 0.6 }}
-              >
-                <motion.p
-                  animate={{
-                    filter: ["blur(0px)", "blur(0.3px)", "blur(0px)"]
-                  }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  Our community is your gateway to mastering Python. Explore hands-on
-                  tutorials that make programming easy and enjoyable. Whether you're a
-                  beginner or an advanced coder, we provide the guidance you need to
-                  excel in Python development, data science, and automation.
-                </motion.p>
-                
-                {/* Animated underline that appears and disappears */}
-                <motion.span
-                  className="absolute bottom-0 left-0 h-0.5 w-full"
-                  initial={{ scaleX: 0 }}
-                  animate={contentInView ? { 
-                    scaleX: [0, 1, 1, 0],
-                    background: [
-                      "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.5), transparent)",
-                      "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.8), transparent)",
-                      "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.5), transparent)",
-                      "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0), transparent)"
-                    ]
-                  } : { scaleX: 0 }}
-                  transition={{ 
-                    duration: 3,
-                    times: [0, 0.3, 0.7, 1],
-                    delay: 2, 
-                    repeat: Infinity,
-                    repeatDelay: 4
-                  }}
-                />
-              </motion.div>
             </motion.div>
 
-            {/* Enhanced Statistics component */}
-            <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={contentInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
-              transition={{ 
-                delay: 1.8, 
-                duration: 0.8,
-                type: "spring",
-                stiffness: 100
-              }}
-            >
-              <Statistics />
-            </motion.div>
+            {/* Add content, stats, or text here */}
+            <Statistics />
           </motion.div>
         </div>
       </motion.div>

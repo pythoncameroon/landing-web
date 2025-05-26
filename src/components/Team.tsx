@@ -104,8 +104,8 @@ const teamList: TeamProps[] = [
   {
     imageUrl: "https://media.licdn.com/dms/image/v2/D4E03AQETL5spp-s2xg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730360240208?e=1744848000&v=beta&t=I_NbXLR9bh3_gauXxvGv73MCROlS4vhnb5hiSm95RzY",
     name: "ImaJin (Jr Patrick)",
-    position: "DevOps Engineer",
-    description: "Automating deployments and managing cloud infrastructure.",
+    position: "Data Engineer",
+    description: "Automating deployments and managing of large datasets.",
     githubUsername: "ImaJin14",
     socialNetworks: [
       {
@@ -171,7 +171,6 @@ const ProfileImage = ({ member, isHovered }: { member: TeamProps, isHovered: boo
     fallbacks.push(`https://www.gravatar.com/avatar/${nameHash}?d=identicon&s=200`);
     
     // 4. UI Avatars (generates avatar from initials)
-    const initials = member.name.split(' ').map(n => n[0]).join('');
     fallbacks.push(`https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&size=200&background=random&color=fff&bold=true&format=png`);
     
     // 5. Robohash (fun robot avatars)

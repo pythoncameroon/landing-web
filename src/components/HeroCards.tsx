@@ -3,7 +3,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -16,8 +15,15 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 
 // Card hover effect component for consistent interactive behaviors
-const FuturisticCard = ({ children, delay = 0, className = "", index = 0 }) => {
-  const ref = useRef(null);
+type FuturisticCardProps = {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+  index?: number;
+};
+
+const FuturisticCard = ({ children, delay = 0, className = "", index = 0 }: FuturisticCardProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -29,7 +35,7 @@ const FuturisticCard = ({ children, delay = 0, className = "", index = 0 }) => {
   const glowY = useTransform(mouseY, [-100, 100], [0, 100]);
   
   // Handle mouse interactions
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -135,29 +141,6 @@ const FuturisticCard = ({ children, delay = 0, className = "", index = 0 }) => {
   );
 };
 
-// Animated icon component
-const AnimatedIcon = ({ children }) => {
-  return (
-    <motion.div
-      whileHover={{ 
-        scale: 1.2, 
-        rotate: [0, 5, -5, 0],
-        transition: { duration: 0.5 }
-      }}
-      className="relative"
-    >
-      <motion.div
-        className="absolute inset-0 bg-primary rounded-full opacity-20"
-        animate={{
-          scale: [0.8, 1.2, 0.8],
-          opacity: [0.1, 0.3, 0.1],
-        }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-      {children}
-    </motion.div>
-  );
-};
 
 // Main HeroCards component
 export const HeroCards = () => {
