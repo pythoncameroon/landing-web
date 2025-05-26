@@ -1,3 +1,22 @@
+:root {
+  --primary-rgb: 22, 163, 74; /* For green, adjust based on your theme */
+}
+
+.dark {
+  --primary-rgb: 34, 197, 94; /* Adjust for dark mode */
+}
+
+@keyframes animateGradient {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: animateGradient 3s ease infinite;
+}
+
 html {
   scroll-behavior: smooth;
 }

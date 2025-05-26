@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
+import { motion, useAnimation, useInView, AnimatePresence } from "framer-motion";
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -34,39 +36,300 @@ const features: FeatureProps[] = [
   },
 ];
 
-export const HowItWorks = () => {
+const AnimatedFeatureCard = ({ icon, title, description, index }) => {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: false, amount: 0.2 });
+  
   return (
-    <section
-      id="howItWorks"
-      className="container text-center py-24 sm:py-32"
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 50, rotateY: 15 }}
+      animate={isInView ? 
+        { opacity: 1, y: 0, rotateY: 0 } : 
+        { opacity: 0, y: 50, rotateY: 15 }
+      }
+      exit={{ opacity: 0, y: -50, rotateY: -15 }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        delay: index * 0.1,
+      }}
+      whileHover={{ 
+        scale: 1.05, 
+        y: -10,
+        transition: { duration: 0.2 }
+      }}
+      className="relative perspective-1000"
     >
-      <h2 className="text-3xl md:text-4xl font-bold ">
-        How It{" "}
-        <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Works{" "}
-        </span>
-        Step-by-Step Guide
-      </h2>
-      <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-        Explore the power of Python through accessibility, community, scalability, and gamification.
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map(({ icon, title, description }: FeatureProps) => (
-          <Card
-            key={title}
-            className="bg-muted/50"
-          >
-            <CardHeader>
-              <CardTitle className="grid gap-4 place-items-center">
+      <motion.div 
+        className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary via-purple-500 to-primary opacity-20 blur-sm -z-10"
+        animate={{
+          backgroundPosition: ['0% center', '100% center', '0% center'],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+        style={{ backgroundSize: "200% 100%" }}
+      />
+      
+      <Card className="bg-muted/50 backdrop-blur-sm border-transparent h-full transition-all duration-300 overflow-hidden">
+        <CardHeader>
+          <CardTitle className="grid gap-4 place-items-center relative">
+            <motion.div
+              whileHover={{ 
+                rotate: [0, -10, 10, -10, 0],
+                scale: 1.2,
+                transition: { duration: 0.5 } 
+              }}
+              className="relative"
+            >
+              <motion.div 
+                className="absolute inset-0 rounded-full bg-primary"
+                animate={{ 
+                  opacity: [0.2, 0.5, 0.2],
+                  scale: [0.8, 1.2, 0.8],
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  delay: index * 0.5 
+                }}
+                style={{ filter: "blur(15px)" }}
+              />
+              <motion.div 
+                className="relative z-10"
+                animate={{ rotate: 360 }}
+                transition={{ 
+                  duration: 20, 
+                  repeat: Infinity, 
+                  ease: "linear",
+                  delay: index * 0.5 
+                }}
+              >
                 {icon}
-                {title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>{description}</CardContent>
-          </Card>
-        ))}
+              </motion.div>
+            </motion.div>
+            
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
+              className="bg-gradient-to-r from-primary via-purple-500 to-primary bg-clip-text text-transparent"
+              style={{ backgroundSize: "200% auto" }}
+              whileHover={{
+                backgroundPosition: ['0% center', '100% center'],
+                transition: { duration: 1 }
+              }}
+            >
+              {title}
+            </motion.span>
+          </CardTitle>
+        </CardHeader>
+        
+        <CardContent>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+          >
+            {description}
+          </motion.div>
+        </CardContent>
+        
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/50 via-purple-500/50 to-primary/50"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.3 }}
+          style={{ transformOrigin: "left" }}
+        />
+      </Card>
+      
+      <motion.div
+        className="absolute -z-10 inset-0 opacity-0 rounded-xl"
+        whileHover={{ opacity: 0.2 }}
+        transition={{ duration: 0.3 }}
+        style={{ filter: "blur(20px)", background: "radial-gradient(circle, rgba(var(--primary-rgb), 0.8) 0%, transparent 70%)" }}
+      />
+    </motion.div>
+  );
+};
+
+export const HowItWorks = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
+  const controls = useAnimation();
+  
+  return (
+    <motion.section
+      id="howItWorks"
+      className="container text-center py-24 sm:py-32 relative overflow-hidden"
+      ref={sectionRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className="absolute inset-0 -z-10">
+        <motion.div 
+          className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/10"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1],
+            x: [0, 30, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{ filter: "blur(80px)" }}
+        />
+        <motion.div 
+          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-purple-500/10"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.1, 0.15, 0.1],
+            x: [0, -20, 0],
+            y: [0, 20, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          style={{ filter: "blur(100px)" }}
+        />
+        
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-[0.03]">
+          {Array.from({ length: 7 }).map((_, i) => (
+            <motion.div
+              key={`v-line-${i}`}
+              className="h-full w-px bg-primary"
+              initial={{ height: 0 }}
+              animate={isInView ? { height: "100%" } : { height: 0 }}
+              transition={{ duration: 1.5, delay: i * 0.1 }}
+            />
+          ))}
+          {Array.from({ length: 5 }).map((_, i) => (
+            <motion.div
+              key={`h-line-${i}`}
+              className="h-px w-full bg-primary"
+              initial={{ width: 0 }}
+              animate={isInView ? { width: "100%" } : { width: 0 }}
+              transition={{ duration: 1.5, delay: i * 0.1 }}
+              style={{ top: `${(i+1) * 20}%`, position: "absolute" }}
+            />
+          ))}
+        </div>
       </div>
-    </section>
+      
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+        className="relative"
+      >
+        <motion.h2 
+          className="text-3xl md:text-4xl font-bold"
+          animate={{ filter: ["blur(0px)", "blur(0.5px)", "blur(0px)"] }}
+          transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+        >
+          How It{" "}
+          <motion.span 
+            className="relative inline-block"
+          >
+            <motion.span
+              className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text"
+              animate={{ 
+                backgroundPosition: ["0% center", "100% center", "0% center"],
+              }}
+              transition={{ duration: 5, repeat: Infinity, repeatType: "mirror" }}
+              style={{ backgroundSize: "200% auto" }}
+            >
+              Works
+            </motion.span>
+            <motion.span 
+              className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
+              animate={{ 
+                opacity: [0.1, 0.3, 0.1], 
+                background: [
+                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)",
+                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.8) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
+            />
+          </motion.span>{" "}
+          Step-by-Step Guide
+        </motion.h2>
+        
+        <motion.div
+          className="h-1 w-20 bg-gradient-to-r from-primary to-purple-500 mx-auto mt-4 rounded-full"
+          initial={{ width: 0 }}
+          animate={isInView ? { width: 80 } : { width: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        />
+      </motion.div>
+      
+      <motion.p
+        className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+      >
+        Explore the power of Python through accessibility, community, scalability, and gamification.
+      </motion.p>
+
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
+        <AnimatePresence>
+          {features.map(({ icon, title, description }: FeatureProps, index) => (
+            <AnimatedFeatureCard
+              key={title}
+              icon={icon}
+              title={title}
+              description={description}
+              index={index}
+            />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+      
+      <motion.div
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+        animate={{ 
+          y: [0, -10, 0],
+          opacity: [0.5, 1, 0.5]
+        }}
+        transition={{ 
+          duration: 2, 
+          repeat: Infinity,
+          ease: "easeInOut" 
+        }}
+      >
+        <motion.div 
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 backdrop-blur-sm"
+          whileHover={{ scale: 1.2 }}
+        >
+          <motion.svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            className="text-primary"
+            animate={{ y: [0, 2, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <path d="M12 19V5M5 12l7 7 7-7"/>
+          </motion.svg>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
