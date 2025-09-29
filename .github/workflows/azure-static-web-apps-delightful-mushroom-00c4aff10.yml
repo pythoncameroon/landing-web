@@ -29,6 +29,7 @@ jobs:
           app_location: "."
           output_location: "dist"
           skip_api_build: true
+          api_build_command: 'echo "Skipping API build"'
           app_build_command: 'npm install && npm run build'
 
   close_pull_request_job:
