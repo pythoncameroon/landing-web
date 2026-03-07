@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Statistics } from "./Statistics";
-import pilot from "../assets/pilot.png";
+import { Statistics } from "@/components/Statistics";
+import pilot from "@/assets/pilot.png";
 
 export const About = () => {
   const sectionRef = useRef(null);
