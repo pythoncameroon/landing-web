@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "@/components/Icons";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 interface FeatureProps {

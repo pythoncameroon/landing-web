@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { ChartIcon, WalletIcon, MagnifierIcon } from "./Icons";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartIcon, WalletIcon, MagnifierIcon } from "@/components/Icons";
 import cubeLeg from "../assets/cube-leg.png";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
