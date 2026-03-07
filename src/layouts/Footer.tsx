@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { LogoIcon } from "./Icons";
+import { LogoIcon } from "../components/Icons";
 import { Github, Twitter, Linkedin, Youtube, MessageCircle, Phone } from "lucide-react";
 
 export const Footer = () => {
