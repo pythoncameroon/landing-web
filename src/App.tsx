@@ -1,15 +1,15 @@
-import {About} from "./components/About";
-import {FAQ} from "./components/FAQ";
-import {Footer} from "./layouts/Footer";
-import {Hero} from "./components/Hero";
-import {HowItWorks} from "./components/HowItWorks";
-import {Navbar} from "./layouts/Navbar";
-import {Newsletter} from "./components/Newsletter";
-import {ScrollToTop} from "./components/ScrollToTop";
-import {Services} from "./components/Services";
-import {Sponsors} from "./components/Sponsors";
-import {Team} from "./components/Team";
-import {Applications} from "./components/Testimonials";
+import {About} from "@/containers/About";
+import {FAQ} from "@/containers/FAQ";
+import {Footer} from "@/layouts/Footer";
+import {Hero} from "@/containers/Hero";
+import {HowItWorks} from "@/containers/HowItWorks";
+import {Navbar} from "@/layouts/Navbar";
+import {Newsletter} from "@/containers/Newsletter";
+import {ScrollToTop} from "@/components/ScrollToTop";
+import {Services} from "@/containers/Services";
+import {Sponsors} from "@/containers/Sponsors";
+import {Team} from "@/containers/Team";
+import {Applications} from "@/containers/Testimonials";
 import "./App.css";
 
 
@@ -25,7 +25,7 @@ function App() {
       <Applications/>
       <Team/>
       <Newsletter/>
-      <FAQ/> 
+      <FAQ/>
       <Footer/>
       <ScrollToTop/>
     </>
