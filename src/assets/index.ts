@@ -6,7 +6,7 @@ import logoDark from "./logo/dark.svg";
 import cameroonFlag from "./images/flag-cameroon.webp";
 
 // Organizers
-import steve from "./organizers/Steve.webp";
+import steve from "./organizers/steve.webp";
 import edmond from "./organizers/edmondMakolle.webp";
 import ange from "./organizers/angeDemanou.webp";
 import djoko from "./organizers/djoko.webp";
