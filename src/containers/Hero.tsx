@@ -241,7 +241,7 @@ export const Hero = () => {
 
   return (
     <motion.section
-      className="container relative grid lg:grid-cols-2 place-items-center py-8 md:py-16 gap-10 hero-section overflow-hidden"
+      className="container relative grid lg:grid-cols-2 place-items-center py-24 md:py-16 gap-10 hero-section overflow-hidden"
       initial={{ opacity: 0 }}
       animate={isVisible ? { opacity: 1 } : { opacity: 0.7 }}
     >
