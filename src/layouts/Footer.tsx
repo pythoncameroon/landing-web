@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { LogoIcon } from "../components/Icons";
 import {
   Github,
   Twitter,
