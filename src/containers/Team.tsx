@@ -284,7 +284,7 @@ const ProfileImage = ({ member, isHovered }: { member: TeamProps, isHovered: boo
       ) : (
         // Default placeholder when all images fail
         <motion.div
-          className="w-full h-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center"
+          className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center"
           animate={{
             scale: isHovered ? 1.1 : 1,
           }}
@@ -350,7 +350,7 @@ export const Team = () => {
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         <motion.div 
-          className="absolute top-10 left-1/5 w-96 h-96 rounded-full bg-primary/5"
+          className="absolute top-10 left-1/5 w-96 h-96 rounded-full bg-primary"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.3, 0.6, 0.3],
@@ -362,7 +362,7 @@ export const Team = () => {
         />
         
         <motion.div 
-          className="absolute bottom-20 right-1/4 w-80 h-80 rounded-full bg-purple-500/5"
+          className="absolute bottom-20 right-1/4 w-80 h-80 rounded-full bg-secondary"
           animate={{
             scale: [1.3, 1, 1.3],
             opacity: [0.4, 0.7, 0.4],
@@ -418,7 +418,7 @@ export const Team = () => {
         transition={{ duration: 0.8 }}
       >
         <motion.div
-          className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
+          className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary/10 border border-slate-500/30"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -426,7 +426,7 @@ export const Team = () => {
         >
           <Users className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-primary">Our Amazing Team</span>
-          <Star className="w-4 h-4 text-primary" />
+          <Star className="w-4 h-4 text-secondary" />
         </motion.div>
 
         <motion.h2 
@@ -435,7 +435,7 @@ export const Team = () => {
           transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
         >
           <motion.span
-            className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text relative"
+            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative"
             animate={{ 
               backgroundPosition: ["0% center", "100% center", "0% center"],
             }}
@@ -459,13 +459,13 @@ export const Team = () => {
         
         {/* Animated divider */}
         <motion.div 
-          className="h-1 w-0 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto mt-6"
+          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
           animate={isInView ? { width: 120 } : { width: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         />
 
         <motion.p
-          className="text-xl text-muted-foreground mt-6 max-w-2xl mx-auto"
+          className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.6, duration: 0.8 }}
@@ -476,7 +476,7 @@ export const Team = () => {
 
       {/* Team grid */}
       <motion.div 
-        className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 gap-y-12"
+        className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 gap-y-12 place-items-center justify-items-center"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 0.7, duration: 0.8 }}
@@ -536,7 +536,7 @@ export const Team = () => {
                   >
                     {/* Rotating background gradient */}
                     <motion.div
-                      className="absolute -inset-3 bg-gradient-to-r from-primary/30 via-purple-500/30 to-primary/30 rounded-full -z-10"
+                      className="absolute -inset-3 bg-gradient-to-r from-primary/30 via-secondary/30 to-primary/30 rounded-full -z-10"
                       animate={{
                         rotate: isHovered ? 360 : 0,
                         scale: isHovered ? 1.1 : 1,
