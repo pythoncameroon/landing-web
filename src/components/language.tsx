@@ -48,7 +48,7 @@ export const LanguageSwitcher = () => {
   const { language, toggleLanguage } = useLanguage();
 
   return (
-    <Button onClick={toggleLanguage} className="ml-auto">
+    <Button onClick={toggleLanguage} className="ml-auto bg-primary dark:bg-secondary">
       {language.toUpperCase()}
     </Button>
   );
