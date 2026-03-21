@@ -98,7 +98,7 @@ export const Statistics = () => {
         }}
       >
         <motion.span
-          className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text"
+          className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
           animate={{
             backgroundPosition: ["0% center", "100% center", "0% center"],
           }}
@@ -114,9 +114,9 @@ export const Statistics = () => {
           animate={{ 
             opacity: counterInView ? [0.1, 0.3, 0.1] : 0,
             background: [
-              "radial-gradient(circle, rgba(var(--primary-rgb), 0.3) 0%, transparent 70%)",
-              "radial-gradient(circle, rgba(var(--primary-rgb), 0.5) 0%, transparent 80%)",
-              "radial-gradient(circle, rgba(var(--primary-rgb), 0.3) 0%, transparent 70%)"
+              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 70%)",
+              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 80%)",
+              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 70%)"
             ]
           }}
           transition={{ 
@@ -150,7 +150,7 @@ export const Statistics = () => {
         />
         
         <motion.div 
-          className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full bg-purple-500/10"
+          className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full bg-secondary/10"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.1, 0.15, 0.1],
@@ -207,7 +207,7 @@ export const Statistics = () => {
             />
             
             <motion.p 
-              className="text-xl text-muted-foreground relative"
+              className="text-[16px] text-muted-foreground relative"
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.6, delay: 0.3 + (index * 0.1) }}
@@ -220,7 +220,7 @@ export const Statistics = () => {
               
               {/* Subtle underline animation on hover */}
               <motion.span
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/50 to-purple-500/50"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/50 to-secondary/50"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.3 }}
