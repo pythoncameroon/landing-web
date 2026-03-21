@@ -235,7 +235,7 @@ export const Team = () => {
           return (
             <motion.div
               key={member.name}
-              className="relative perspective-1000 w-[280px] h-[320px]"
+              className="relative perspective-1000 w-full sm:w-[280px] h-[320px]"
               initial={{ opacity: 0, y: 30, rotateX: 10 }}
               animate={
                 isInView
