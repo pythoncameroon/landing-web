@@ -67,7 +67,7 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
       className="relative perspective-1000"
     >
       <motion.div 
-        className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary via-purple-500 to-primary opacity-20 blur-sm -z-10"
+        className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary via-secondary to-primary opacity-20 blur-sm -z-10"
         animate={{
           backgroundPosition: ['0% center', '100% center', '0% center'],
         }}
@@ -121,7 +121,7 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              className="bg-gradient-to-r from-primary via-purple-500 to-primary bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent"
               style={{ backgroundSize: "200% auto" }}
               whileHover={{
                 backgroundPosition: ['0% center', '100% center'],
@@ -134,17 +134,18 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
         </CardHeader>
         
         <CardContent>
-          <motion.div
+          <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+            className="text-xs"
           >
             {description}
-          </motion.div>
+          </motion.p>
         </CardContent>
         
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/50 via-purple-500/50 to-primary/50"
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50"
           initial={{ scaleX: 0 }}
           whileHover={{ scaleX: 1 }}
           transition={{ duration: 0.3 }}
@@ -188,7 +189,7 @@ export const HowItWorks = () => {
           style={{ filter: "blur(80px)" }}
         />
         <motion.div 
-          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-purple-500/10"
+          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-secondary/10"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.1, 0.15, 0.1],
@@ -238,7 +239,7 @@ export const HowItWorks = () => {
             className="relative inline-block"
           >
             <motion.span
-              className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text"
+              className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
               animate={{ 
                 backgroundPosition: ["0% center", "100% center", "0% center"],
               }}
@@ -264,7 +265,7 @@ export const HowItWorks = () => {
         </motion.h2>
         
         <motion.div
-          className="h-1 w-20 bg-gradient-to-r from-primary to-purple-500 mx-auto mt-4 rounded-full"
+          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
           initial={{ width: 0 }}
           animate={isInView ? { width: 80 } : { width: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -272,7 +273,7 @@ export const HowItWorks = () => {
       </motion.div>
       
       <motion.p
-        className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground"
+        className="md:w-3/4 mx-auto mt-4 mb-20 text-lg text-muted-foreground"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.4, duration: 0.6 }}
@@ -297,41 +298,6 @@ export const HowItWorks = () => {
             />
           ))}
         </AnimatePresence>
-      </motion.div>
-      
-      <motion.div
-        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-        animate={{ 
-          y: [0, -10, 0],
-          opacity: [0.5, 1, 0.5]
-        }}
-        transition={{ 
-          duration: 2, 
-          repeat: Infinity,
-          ease: "easeInOut" 
-        }}
-      >
-        <motion.div 
-          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 backdrop-blur-sm"
-          whileHover={{ scale: 1.2 }}
-        >
-          <motion.svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            className="text-primary"
-            animate={{ y: [0, 2, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <path d="M12 19V5M5 12l7 7 7-7"/>
-          </motion.svg>
-        </motion.div>
       </motion.div>
     </motion.section>
   );
