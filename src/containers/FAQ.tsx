@@ -255,7 +255,7 @@ export const FAQ = () => {
                         animate={{ rotate: isOpen ? 360 : 0 }}
                         transition={{ duration: 0.5, type: "spring" }}
                       >
-                        <HelpCircle className="w-5 h-5 text-secondary" />
+                        <HelpCircle className="w-5 h-5 text-primary dark:text-secondary" />
                       </motion.div>
                     </motion.div>
                     
