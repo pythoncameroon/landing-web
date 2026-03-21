@@ -117,7 +117,7 @@ export const Navbar = () => {
             ? "backdrop-blur-lg bg-white/80 dark:bg-background/80"
             : "bg-white dark:bg-background"
         } 
-        dark:border-b-slate-700`}
+        dark:border-b-gray-500/20`}
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
