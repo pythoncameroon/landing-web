@@ -111,7 +111,7 @@ export const Navbar = () => {
 
   return (
     <motion.header
-      className={`sticky border-b-[1px] top-0 z-40 w-full transition-all duration-300
+      className={`fixed border-b-[1px] top-0 z-40 w-full transition-all duration-300
         ${
           scrolled
             ? "backdrop-blur-lg bg-white/80 dark:bg-background/80"
