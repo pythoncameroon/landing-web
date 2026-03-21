@@ -56,7 +56,7 @@ export const Services = () => {
           style={{ filter: "blur(80px)" }}
         />
         <motion.div 
-          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-purple-500/10"
+          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-secondary/10"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.1, 0.15, 0.1],
@@ -85,14 +85,14 @@ export const Services = () => {
             transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
           >
             <motion.span 
-              className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text relative inline-block"
+              className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative inline-block"
               style={{ backgroundSize: "200% 100%" }}
               animate={{
                 backgroundPosition: ["0% center", "100% center", "0% center"]
               }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             >
-              Client-Centric{" "}
+              Client-Centric
               <motion.span 
                 className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
                 animate={{ 
@@ -103,12 +103,12 @@ export const Services = () => {
                   background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.2), rgba(147, 51, 234, 0.2), rgba(var(--primary-rgb), 0.2))",
                 }}
               />
-            </motion.span>
+            </motion.span>{" "}
             Services
           </motion.h2>
 
           <motion.p 
-            className="text-muted-foreground text-xl mt-4 mb-8 relative"
+            className="text-muted-foreground text-lg mt-4 mb-8 relative"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -122,7 +122,7 @@ export const Services = () => {
             />
           </motion.p>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 mt-16">
             <AnimatePresence>
               {serviceList.map(({ icon, title, description }: ServiceProps, index) => (
                 <motion.div
@@ -143,7 +143,7 @@ export const Services = () => {
                 >
                   <Card className="overflow-hidden relative border border-primary/10 bg-card/50 backdrop-blur-sm">
                     <motion.div 
-                      className="absolute inset-0 bg-gradient-to-r from-primary/5 to-purple-500/5 opacity-0"
+                      className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0"
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
@@ -159,7 +159,7 @@ export const Services = () => {
                         }}
                       >
                         <motion.div 
-                          className="absolute inset-0 bg-gradient-to-r from-primary/30 to-purple-500/30 opacity-0"
+                          className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 opacity-0"
                           whileHover={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
                         />
@@ -188,7 +188,7 @@ export const Services = () => {
                           <CardTitle className="relative inline-block">
                             {title}
                             <motion.div 
-                              className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-purple-500"
+                              className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-secondary"
                               whileHover={{ width: "100%" }}
                               transition={{ duration: 0.3 }}
                             />
@@ -200,7 +200,7 @@ export const Services = () => {
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
                         >
-                          <CardDescription className="text-md mt-2">
+                          <CardDescription className="text-sm mt-2">
                             {description}
                           </CardDescription>
                         </motion.div>
@@ -233,7 +233,7 @@ export const Services = () => {
           style={{ transformStyle: "preserve-3d" }}
         >
           <motion.div
-            className="absolute -inset-10 bg-gradient-to-tr from-primary/20 via-transparent to-purple-500/20 rounded-full -z-10"
+            className="absolute -inset-10 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/20 rounded-full -z-10"
             animate={{
               rotateZ: 360,
               opacity: [0.2, 0.3, 0.2]
