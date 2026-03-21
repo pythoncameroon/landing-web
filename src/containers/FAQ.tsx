@@ -79,7 +79,7 @@ export const FAQ = () => {
         />
         
         <motion.div 
-          className="absolute bottom-10 right-1/3 w-80 h-80 rounded-full bg-purple-500/5"
+          className="absolute bottom-10 right-1/3 w-80 h-80 rounded-full bg-secondary"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.4, 0.7, 0.4],
@@ -140,7 +140,7 @@ export const FAQ = () => {
         >
           <HelpCircle className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-primary">Got Questions?</span>
-          <Sparkles className="w-4 h-4 text-primary" />
+          <Sparkles className="w-4 h-4 text-secondary" />
         </motion.div>
 
         <motion.h2 
@@ -150,7 +150,7 @@ export const FAQ = () => {
         >
           Frequently Asked{" "}
           <motion.span
-            className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text relative"
+            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative"
             animate={{ 
               backgroundPosition: ["0% center", "100% center", "0% center"],
             }}
@@ -174,13 +174,13 @@ export const FAQ = () => {
         
         {/* Animated divider */}
         <motion.div 
-          className="h-1 w-0 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto mt-6"
+          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
           animate={isInView ? { width: 100 } : { width: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         />
 
         <motion.p
-          className="text-xl text-muted-foreground mt-6 max-w-2xl mx-auto"
+          className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.6, duration: 0.8 }}
@@ -255,7 +255,7 @@ export const FAQ = () => {
                         animate={{ rotate: isOpen ? 360 : 0 }}
                         transition={{ duration: 0.5, type: "spring" }}
                       >
-                        <HelpCircle className="w-5 h-5 text-primary" />
+                        <HelpCircle className="w-5 h-5 text-secondary" />
                       </motion.div>
                     </motion.div>
                     
