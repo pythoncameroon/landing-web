@@ -90,6 +90,10 @@
         --input: 240 5.9% 90%;
         --ring: 142.1 76.2% 36.3%;
         --radius: 0.5rem;
+
+        /* Fonts */
+        --font-dotgothic16: "DotGothic16", sans-serif;
+        --font-space-mono: "Space Mono", monospace;
     }
 
     .dark {
@@ -121,6 +125,15 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground font-space-mono;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-dotgothic16;
     }
 }

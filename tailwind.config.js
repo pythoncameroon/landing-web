@@ -80,6 +80,10 @@ module.exports = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+            fontFamily: {
+                dotgothic16: ["var(--font-dotgothic16)", "sans-serif"],
+                "space-mono": ["var(--font-space-mono)", "monospace"],
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],
