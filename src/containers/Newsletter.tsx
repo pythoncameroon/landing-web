@@ -265,7 +265,7 @@ export const Newsletter = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative overflow-hidden"
+              className="relative overflow-hidden flex justify-center"
             >
               <Button 
                 className="relative h-12 min-w-[120px] overflow-hidden hover:text-primary dark:hover:text-secondary dark:bg-secondary dark:hover:bg-transparent" 
