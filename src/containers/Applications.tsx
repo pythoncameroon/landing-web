@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code2, Database, Brain, Zap, Shield, Gamepad2, Sparkles, ArrowRight } from "lucide-react";
+import { Code2, Database, Brain, Zap, Shield, Gamepad2, Sparkles, ArrowRight, Info } from "lucide-react";
 
 interface ApplicationProps {
   image: string;
@@ -54,9 +54,9 @@ export const Applications = () => {
       icon: <Brain className="w-6 h-6" />,
       techStack: ["TensorFlow", "PyTorch", "Scikit-learn", "OpenCV"],
       color: {
-        primary: "from-purple-500 to-pink-500",
-        secondary: "bg-purple-500/10",
-        accent: "border-purple-500/30"
+        primary: "from-secondary to-pink-500",
+        secondary: "bg-secondary/10",
+        accent: "border-secondary/30"
       }
     },
     {
@@ -121,7 +121,7 @@ export const Applications = () => {
         />
         
         <motion.div 
-          className="absolute bottom-20 right-1/3 w-96 h-96 rounded-full bg-purple-500/8"
+          className="absolute bottom-20 right-1/3 w-96 h-96 rounded-full bg-secondary"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.1, 0.15, 0.1],
@@ -187,7 +187,7 @@ export const Applications = () => {
         >
           Explore
           <motion.span 
-            className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text ml-2"
+            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text ml-2"
             animate={{ 
               backgroundPosition: ["0% center", "100% center", "0% center"],
             }}
@@ -211,21 +211,21 @@ export const Applications = () => {
         </motion.h2>
         
         <motion.div 
-          className="h-1 w-0 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto mt-6"
+          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
           animate={isInView ? { width: 150 } : { width: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
         />
 
         <motion.p 
-          className="text-xl text-muted-foreground pt-4 pb-8 max-w-2xl mx-auto relative"
+          className="text-lg text-muted-foreground pt-4 pb-8 max-w-2xl mx-auto relative"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
           Python is used in various fields, from web development to artificial intelligence.
           <br />
-          <motion.span className="text-primary font-medium">
-            Hover over each section to learn more.
+          <motion.span className="text-primary font-medium mt-5 flex items-center justify-center gap-2 text-sm">
+            <Info width={16} height={16} /> Hover over each section to learn more.
           </motion.span>
           
           {/* Animated underline */}
@@ -449,7 +449,7 @@ export const Applications = () => {
                       transition={{ delay: 0.2, duration: 0.3 }}
                     >
                       <h3 className="text-xl font-bold mb-3 text-primary">{title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                      <p className="text-muted-foreground mb-4 leading-relaxed text-xs">
                         {description}
                       </p>
                       
@@ -485,33 +485,32 @@ export const Applications = () => {
       >
         <motion.div
           className="text-center"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
         >
-          <motion.p className="text-lg text-muted-foreground mb-4">
+          <motion.h3 className="text-2xl text-muted-foreground mb-4">
             Ready to start your Python journey?
-          </motion.p>
+          </motion.h3>
           <motion.button
-            className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-full font-medium relative overflow-hidden group"
-            whileHover={{ boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
+          whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
+          whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"
           >
             <motion.a
               href="https://github.com/pythoncameroon"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 bg-gradient-to-r from-primary to-purple-500 text-white rounded-full font-medium relative overflow-hidden group"
+              className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"
               whileHover={{ boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
             >
               <span className="relative z-10">Join Python Cameroon</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-500 to-primary"
+                className="absolute inset-0 bg-gradient-to-r from-secondary to-primary"
                 initial={{ x: "100%" }}
                 whileHover={{ x: 0 }}
                 transition={{ duration: 0.3 }}
               />
             </motion.a>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-500 to-primary"
+              className="absolute inset-0 bg-gradient-to-r from-secondary to-primary"
               initial={{ x: "100%" }}
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}

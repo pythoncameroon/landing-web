@@ -25,7 +25,7 @@ export const About = () => {
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         <motion.div 
-          className="absolute top-10 left-1/4 w-72 h-72 rounded-full bg-primary/8"
+          className="absolute top-10 left-1/4 w-72 h-72 rounded-full bg-primary"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.1, 0.2, 0.1],
@@ -37,7 +37,7 @@ export const About = () => {
         />
         
         <motion.div 
-          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-purple-500/8"
+          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-secondary"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.1, 0.15, 0.1],
@@ -87,7 +87,7 @@ export const About = () => {
       </div>
 
       <motion.div 
-        className="bg-muted/50 border rounded-lg py-12 relative overflow-hidden backdrop-blur-sm"
+        className="rounded-lg py-12 relative overflow-hidden backdrop-blur-sm  perspective-1000"
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
         animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
         transition={{ 
@@ -99,6 +99,18 @@ export const About = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+            <motion.div
+              className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+              initial={{ x: "-100%" }}
+              animate={{ x: "200%" }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                repeatDelay: 5,
+                ease: "easeInOut"
+              }}
+            />
+
         {/* Animated border glow */}
         <motion.div 
           className="absolute inset-0 rounded-lg"
@@ -145,7 +157,7 @@ export const About = () => {
             }}
           >
             <motion.div 
-              className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 -z-10"
+              className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 -z-10"
               animate={{
                 opacity: [0.3, 0.6, 0.3],
                 scale: [1, 1.05, 1],
@@ -171,18 +183,6 @@ export const About = () => {
               }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
-
-            <motion.div
-              className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-              initial={{ x: "-100%" }}
-              animate={{ x: "200%" }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 5,
-                ease: "easeInOut"
-              }}
-            />
           </motion.div>
           
           {/* Enhanced content section */}
@@ -206,13 +206,13 @@ export const About = () => {
             >
               {/* Enhanced heading with staggered animation */}
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold relative"
+                className="text-5xl sm:text-6xl md:text-7xl font-bold relative"
                 initial={{ opacity: 0 }}
                 animate={contentInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
               >
                 <motion.span 
-                  className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text relative inline-block"
+                  className="relative inline-block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ delay: 1.1, duration: 0.5 }}
@@ -221,20 +221,6 @@ export const About = () => {
                   }}
                 >
                   About{" "}
-                  
-                  {/* Glowing effect behind "About" */}
-                  <motion.span 
-                    className="absolute -inset-1 rounded-lg blur-xl -z-10"
-                    animate={{ 
-                      opacity: [0.1, 0.3, 0.1], 
-                      background: [
-                        "radial-gradient(circle, rgba(var(--primary-rgb), 0.4) 0%, transparent 70%)",
-                        "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 80%)",
-                        "radial-gradient(circle, rgba(var(--primary-rgb), 0.4) 0%, transparent 70%)"
-                      ]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
-                  />
                 </motion.span>
               </motion.h2>
             </motion.div>
