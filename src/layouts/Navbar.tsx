@@ -240,7 +240,7 @@ export const Navbar = () => {
                       href="https://github.com/pythoncameroon"
                       target="_blank"
                       className={`w-full border ${buttonVariants({
-                        variant: "secondary",
+                        variant: "outline",
                       })} group relative overflow-hidden`}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

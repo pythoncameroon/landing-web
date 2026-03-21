@@ -49,7 +49,7 @@ export const Sponsors = () => {
         />
         
         <motion.div 
-          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-purple-500/10"
+          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-secondary/10"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.05, 0.1, 0.05],
@@ -77,7 +77,7 @@ export const Sponsors = () => {
           transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
         >
           <motion.span
-            className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text"
+            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
             animate={{ 
               backgroundPosition: ["0% center", "100% center", "0% center"],
             }}
@@ -102,7 +102,7 @@ export const Sponsors = () => {
         
         {/* Animated divider */}
         <motion.div 
-          className="h-1 w-0 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto mt-4"
+          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-4"
           animate={isInView ? { width: 120 } : { width: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         />
@@ -190,7 +190,7 @@ export const Sponsors = () => {
                 >
                   {/* Rotating background gradient */}
                   <motion.div
-                    className="absolute -inset-5 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-full -z-10"
+                    className="absolute -inset-5 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-full -z-10"
                     animate={{
                       rotate: hoveredIndex === index ? 360 : 0,
                       scale: hoveredIndex === index ? 1 : 0.9,
@@ -275,7 +275,7 @@ export const Sponsors = () => {
                   
                   {/* Animated underline */}
                   <motion.div 
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-purple-500"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
                     initial={{ width: "0%" }}
                     animate={{ width: hoveredIndex === index ? "100%" : "0%" }}
                     transition={{ duration: 0.3 }}
@@ -348,7 +348,7 @@ export const Sponsors = () => {
           
           {/* Bottom border animation */}
           <motion.div 
-            className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-purple-500"
+            className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-primary to-secondary"
             initial={{ width: "0%" }}
             whileHover={{ width: "100%" }}
             transition={{ duration: 0.3 }}
