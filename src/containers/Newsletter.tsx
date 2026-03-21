@@ -57,7 +57,7 @@ export const Newsletter = () => {
           />
           
           <motion.div 
-            className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-purple-500/10"
+            className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-secondary"
             animate={{
               scale: [1.2, 1, 1.2],
               opacity: [0.1, 0.15, 0.1],
@@ -121,7 +121,7 @@ export const Newsletter = () => {
               className="relative inline-block"
             >
               <motion.span
-                className="bg-gradient-to-r from-primary via-purple-500 to-primary text-transparent bg-clip-text"
+                className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
                 animate={{ 
                   backgroundPosition: ["0% center", "100% center", "0% center"],
                 }}
@@ -146,14 +146,14 @@ export const Newsletter = () => {
           </motion.h3>
           
           <motion.div 
-            className="h-1 w-0 bg-gradient-to-r from-primary to-purple-500 mx-auto mt-4 rounded-full"
+            className="h-1 w-0 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
             animate={isInView ? { width: 80 } : { width: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           />
         </motion.div>
 
         <motion.p 
-          className="text-xl text-muted-foreground text-center mt-6 mb-12 relative"
+          className="text-lg text-muted-foreground text-center mt-6 mb-12 relative"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -191,7 +191,7 @@ export const Newsletter = () => {
           className="perspective-1000 relative"
         >
           <motion.div
-            className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 -z-10"
+            className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 -z-10"
             animate={{
               backgroundPosition: ['0% center', '100% center', '0% center'],
               opacity: [0.4, 0.6, 0.4],
@@ -228,7 +228,7 @@ export const Newsletter = () => {
               
               <Input
                 placeholder="pythoncameroon@gmail.com"
-                className="bg-muted/50 dark:bg-muted/80 backdrop-blur-sm h-12 pl-4 pr-4 border-primary/20 focus-visible:ring-primary"
+                className="bg-muted/50 dark:bg-muted/80 backdrop-blur-sm h-12 pl-4 pr-4 border-primary/20 focus-visible:ring-primary dark:border-secondary/20 dark:focus-visible:ring-secondary"
                 aria-label="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -268,7 +268,7 @@ export const Newsletter = () => {
               className="relative overflow-hidden"
             >
               <Button 
-                className="relative h-12 min-w-[120px] overflow-hidden" 
+                className="relative h-12 min-w-[120px] overflow-hidden hover:text-primary dark:hover:text-secondary dark:bg-secondary dark:hover:bg-transparent" 
                 disabled={isSubmitting || isSuccess}
               >
                 <AnimatePresence mode="wait">
@@ -324,7 +324,7 @@ export const Newsletter = () => {
                 </AnimatePresence>
                 
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-primary/80 via-purple-500/80 to-primary/80 -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/80 via-secondary/80 to-primary/80 -z-10"
                   animate={{
                     backgroundPosition: ['0% center', '100% center', '0% center'],
                   }}
@@ -363,7 +363,7 @@ export const Newsletter = () => {
           {["Updates", "Events", "Tutorials", "Community"].map((tag, i) => (
             <motion.div
               key={tag}
-              className="px-3 py-1 bg-muted/50 backdrop-blur-sm rounded-full text-sm"
+              className="px-3 py-1 bg-secondary dark:bg-muted backdrop-blur-sm rounded-full text-sm"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8 + (i * 0.1), duration: 0.3 }}
