@@ -9,7 +9,7 @@ import {ScrollToTop} from "@/components/ScrollToTop";
 import {Services} from "@/containers/Services";
 import {Sponsors} from "@/containers/Sponsors";
 import {Team} from "@/containers/Team";
-import {Applications} from "@/containers/Testimonials";
+import {Applications} from "@/containers/Applications";
 import "./App.css";
 
 
