@@ -330,7 +330,8 @@ export const Sponsors = () => {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 1, duration: 0.5 }}
       >
-        <motion.button
+        <motion.a
+          href="mailto:organizers@pythoncameroon.org"
           className="px-6 py-2.5 rounded-full text-primary relative overflow-hidden group"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -363,9 +364,9 @@ export const Sponsors = () => {
             }}
             transition={{ duration: 0.3 }}
           />
-        </motion.button>
+        </motion.a>
       </motion.div>
-      
+
       {/* Bottom divider line */}
       <motion.div 
         className="absolute bottom-0 left-0 right-0 h-px"

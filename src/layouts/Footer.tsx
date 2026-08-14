@@ -4,7 +4,6 @@ import {
   Github,
   Twitter,
   Linkedin,
-  Youtube,
   MessageCircle,
   Phone,
   Heart,
@@ -19,7 +18,6 @@ export const Footer = () => {
     Github: Github,
     Twitter: Twitter,
     Linkedin: Linkedin,
-    Youtube: Youtube,
     Discord: MessageCircle,
     WhatsApp: Phone,
   };
@@ -50,13 +48,11 @@ export const Footer = () => {
       links: [
         { name: "FAQ", url: "#faq", icon: null },
         { name: "Team", url: "#team", icon: null },
-        { name: "Community", url: "#community", icon: null },
       ],
     },
     {
       title: "Community",
       links: [
-        { name: "Youtube", url: "#", icon: "Youtube" },
         {
           name: "Discord",
           url: "https://discord.gg/TWVCKCe3Dt",
