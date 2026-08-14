@@ -489,33 +489,22 @@ export const Applications = () => {
           <motion.h3 className="text-2xl text-muted-foreground mb-4">
             Ready to start your Python journey?
           </motion.h3>
-          <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
-          whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"
+          <motion.a
+            href="https://github.com/pythoncameroon"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"
+            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
+            whileTap={{ scale: 0.95 }}
           >
-            <motion.a
-              href="https://github.com/pythoncameroon"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"
-              whileHover={{ boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.5)" }}
-            >
-              <span className="relative z-10">Join Python Cameroon</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-secondary to-primary"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
+            <span className="relative z-10">Join Python Cameroon</span>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-secondary to-primary"
               initial={{ x: "100%" }}
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}
             />
-          </motion.button>
+          </motion.a>
         </motion.div>
       </motion.div>
     </motion.section>

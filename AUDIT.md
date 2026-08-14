@@ -53,10 +53,11 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 - **`src/containers/Sponsors.tsx:333`** : bouton « Become a Partner » sans onClick ni href → lien mailto/formulaire de contact, ou retirer.
 - **Vérification :** cliquer chaque lien du site ; aucune ancre morte.
 
-### B6 — HTML invalide : `<a>` imbriqué dans `<button>` 🟠
+### B6 — HTML invalide : `<a>` imbriqué dans `<button>` 🟠 — ✅ traité
 - **Fichier :** `src/containers/Applications.tsx` lignes 492–518.
 - **Problème :** `<motion.a>` dans `<motion.button>` (interdit par la spec, comportement clavier/lecteur d'écran imprévisible) + overlay dégradé dupliqué 2 fois.
-- **Correction :** supprimer le `<motion.button>`, garder le `<motion.a>` seul stylé en bouton, un seul overlay.
+- **Correction appliquée :** `<motion.button>` supprimé ; le `<motion.a>` seul porte le style bouton (`inline-block` ajouté), les effets `whileHover`/`whileTap` fusionnés, un seul overlay dégradé conservé.
+- **Vérification :** `npm run build` OK.
 
 ### B7 — Hooks : fuite de listener + garde inutile + double toggle 🟡
 - **`src/components/ScrollToTop.tsx:8–16`** : listener `scroll` jamais retiré → retourner un cleanup `removeEventListener`.
