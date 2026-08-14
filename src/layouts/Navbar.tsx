@@ -174,10 +174,7 @@ export const Navbar = () => {
                   whileTap={{ scale: 0.9 }}
                   className="relative"
                 >
-                  <Menu
-                    className="flex md:hidden h-5 w-5"
-                    onClick={() => setIsOpen(true)}
-                  >
+                  <Menu className="flex md:hidden h-5 w-5">
                     <span className="sr-only">Menu Icon</span>
                   </Menu>
                   {/* Notification dot */}

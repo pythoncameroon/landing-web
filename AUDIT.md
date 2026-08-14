@@ -59,10 +59,11 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 - **Correction appliquée :** `<motion.button>` supprimé ; le `<motion.a>` seul porte le style bouton (`inline-block` ajouté), les effets `whileHover`/`whileTap` fusionnés, un seul overlay dégradé conservé.
 - **Vérification :** `npm run build` OK.
 
-### B7 — Hooks : fuite de listener + garde inutile + double toggle 🟡
-- **`src/components/ScrollToTop.tsx:8–16`** : listener `scroll` jamais retiré → retourner un cleanup `removeEventListener`.
-- **`src/providers/theme-provider.tsx:69–76`** : `context === undefined` jamais vrai (valeur par défaut fournie à `createContext`) → passer le défaut à `null` pour rendre la garde effective ; bonus : écouter `matchMedia("(prefers-color-scheme: dark)").addEventListener("change", …)` quand theme === "system".
-- **`src/layouts/Navbar.tsx:184`** : `onClick={() => setIsOpen(true)}` sur l'icône `Menu` à l'intérieur du `SheetTrigger` qui gère déjà l'ouverture → supprimer le onClick.
+### B7 — Hooks : fuite de listener + garde inutile + double toggle 🟡 — ✅ traité
+- **`src/components/ScrollToTop.tsx:8–16`** : listener `scroll` jamais retiré → **corrigé** : handler nommé + cleanup `removeEventListener`.
+- **`src/providers/theme-provider.tsx:69–76`** : `context === undefined` jamais vrai (valeur par défaut fournie à `createContext`) → **corrigé** : défaut à `null`, garde `if (!context)` ; bonus appliqué : listener `matchMedia("(prefers-color-scheme: dark)").addEventListener("change", …)` (avec cleanup) quand theme === "system".
+- **`src/layouts/Navbar.tsx:184`** : `onClick={() => setIsOpen(true)}` sur l'icône `Menu` à l'intérieur du `SheetTrigger` qui gère déjà l'ouverture → **corrigé** : onClick supprimé.
+- **Vérification :** `npm run build` OK.
 
 ---
 
