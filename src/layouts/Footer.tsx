@@ -4,6 +4,7 @@ import {
   Github,
   Twitter,
   Linkedin,
+  Youtube,
   MessageCircle,
   Phone,
   Heart,
@@ -18,6 +19,7 @@ export const Footer = () => {
     Github: Github,
     Twitter: Twitter,
     Linkedin: Linkedin,
+    Youtube: Youtube,
     Discord: MessageCircle,
     WhatsApp: Phone,
   };
@@ -40,6 +42,11 @@ export const Footer = () => {
           name: "LinkedIn",
           url: "https://linkedin.com/company/PythonCameroon",
           icon: "Linkedin",
+        },
+        {
+          name: "Youtube",
+          url: "https://www.youtube.com/@PythonCameroon",
+          icon: "Youtube",
         },
       ],
     },
