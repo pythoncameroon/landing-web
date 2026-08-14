@@ -1,7 +1,14 @@
 import { useState, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code2, Database, Brain, Zap, Shield, Gamepad2, Sparkles, ArrowRight, Info } from "lucide-react";
+// Images servies localement en WebP 800px au lieu d'Unsplash ~2000px (AUDIT.md P3)
+import webDevelopmentImg from "@/assets/applications/web-development.webp";
+import dataScienceImg from "@/assets/applications/data-science.webp";
+import machineLearningImg from "@/assets/applications/machine-learning.webp";
+import automationImg from "@/assets/applications/automation.webp";
+import cybersecurityImg from "@/assets/applications/cybersecurity.webp";
+import gameDevelopmentImg from "@/assets/applications/game-development.webp";
 
 interface ApplicationProps {
   image: string;
@@ -20,11 +27,11 @@ export const Applications = () => {
   const [hovered, setHovered] = useState<number | null>(null);
   const [, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const applications: ApplicationProps[] = [
     {
-      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: webDevelopmentImg,
       title: "Web Development",
       description: "Python is widely used for building websites with frameworks like Django and Flask. Create powerful, scalable web applications with clean, maintainable code.",
       icon: <Code2 className="w-6 h-6" />,
@@ -36,7 +43,7 @@ export const Applications = () => {
       }
     },
     {
-      image: "https://plus.unsplash.com/premium_photo-1661878265739-da90bc1af051?q=80&w=1986&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: dataScienceImg,
       title: "Data Science",
       description: "Python is the go-to language for data analysis, visualization, and manipulation using Pandas and NumPy. Transform raw data into actionable insights.",
       icon: <Database className="w-6 h-6" />,
@@ -48,7 +55,7 @@ export const Applications = () => {
       }
     },
     {
-      image: "https://plus.unsplash.com/premium_photo-1681121353159-3278949ff491?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: machineLearningImg,
       title: "Machine Learning & AI",
       description: "Python is essential in AI with libraries like TensorFlow and scikit-learn. Build intelligent systems that learn and adapt.",
       icon: <Brain className="w-6 h-6" />,
@@ -60,7 +67,7 @@ export const Applications = () => {
       }
     },
     {
-      image: "https://plus.unsplash.com/premium_photo-1676637656198-e2bbf752103a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: automationImg,
       title: "Automation & Scripting",
       description: "Automate repetitive tasks using Python scripts, Selenium, and BeautifulSoup. Increase productivity and eliminate manual work.",
       icon: <Zap className="w-6 h-6" />,
@@ -72,7 +79,7 @@ export const Applications = () => {
       }
     },
     {
-      image: "https://plus.unsplash.com/premium_photo-1661877737564-3dfd7282efcb?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: cybersecurityImg,
       title: "Cybersecurity",
       description: "Python is used in ethical hacking, penetration testing, and security analysis. Protect digital assets with powerful security tools.",
       icon: <Shield className="w-6 h-6" />,
@@ -84,7 +91,7 @@ export const Applications = () => {
       }
     },
     {
-      image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: gameDevelopmentImg,
       title: "Game Development",
       description: "Python is used to create games with frameworks like Pygame and Panda3D. Build engaging interactive experiences and simulations.",
       icon: <Gamepad2 className="w-6 h-6" />,
@@ -98,125 +105,64 @@ export const Applications = () => {
   ];
 
   return (
-    <motion.section 
-      id="python-applications" 
+    <m.section
+      id="python-applications"
       ref={sectionRef}
       className="container py-24 sm:py-32 relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Animated background elements */}
+      {/* Background elements */}
       <div className="absolute inset-0 -z-10">
-        <motion.div 
+        <div
           className="absolute top-20 left-1/4 w-80 h-80 rounded-full bg-primary/8"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.2, 0.1],
-            x: [0, 40, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           style={{ filter: "blur(120px)" }}
         />
-        
-        <motion.div 
+
+        <div
           className="absolute bottom-20 right-1/3 w-96 h-96 rounded-full bg-secondary"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.15, 0.1],
-            x: [0, -30, 0],
-            y: [0, 30, 0]
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-          style={{ filter: "blur(100px)" }}
+          style={{ filter: "blur(100px)", opacity: 0.15 }}
         />
 
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMyMDIwMjAiIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMzBjMCAxNi41Ny0xMy40MyAzMC0zMCAzMFMwIDQ2LjU3IDAgMzAgMTMuNDMgMCAzMCAwczMwIDEzLjQzIDMwIDMweiIgc3Ryb2tlPSIjZmZmZmZmMDMiIHN0cm9rZS13aWR0aD0iLjUiLz48L2c+PC9zdmc+')] opacity-[0.02]" />
-
-        {/* Floating particles */}
-        <AnimatePresence>
-          {isInView && (
-            <>
-              {Array.from({ length: 12 }).map((_, i) => (
-                <motion.div
-                  key={`particle-${i}`}
-                  className="absolute rounded-full bg-primary"
-                  initial={{ 
-                    opacity: 0,
-                    x: "50%",
-                    y: "50%",
-                    scale: 0
-                  }}
-                  animate={{ 
-                    opacity: [0, 0.4, 0],
-                    x: `${Math.random() * 100}%`,
-                    y: `${Math.random() * 100}%`,
-                    scale: [0, 1, 0]
-                  }}
-                  transition={{ 
-                    duration: 8 + Math.random() * 4,
-                    repeat: Infinity,
-                    delay: i * 0.6,
-                    ease: "easeInOut"
-                  }}
-                  style={{ 
-                    width: `${Math.random() * 4 + 2}px`,
-                    height: `${Math.random() * 4 + 2}px`,
-                    filter: "blur(1px)"
-                  }}
-                />
-              ))}
-            </>
-          )}
-        </AnimatePresence>
       </div>
 
       {/* Section header */}
-      <motion.div 
+      <m.div
         className="relative mb-16 text-center"
         initial={{ opacity: 0, y: -30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
         transition={{ duration: 0.8 }}
       >
-        <motion.h2 
+        <h2
           className="text-3xl md:text-4xl font-bold relative"
-          animate={{ filter: ["blur(0px)", "blur(0.5px)", "blur(0px)"] }}
-          transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
         >
           Explore
-          <motion.span 
+          <span
             className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text ml-2"
-            animate={{ 
-              backgroundPosition: ["0% center", "100% center", "0% center"],
-            }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            style={{ backgroundSize: "200% auto" }}
           >
             Python's Applications
-          </motion.span>
-          
+          </span>
+
           {/* Glowing effect behind text */}
-          <motion.span 
+          <span
             className="absolute -inset-2 rounded-lg blur-xl -z-10"
-            animate={{ 
-              opacity: [0.1, 0.3, 0.1], 
-            }}
-            transition={{ duration: 4, repeat: Infinity, repeatType: "mirror" }}
-            style={{ 
+            style={{
               background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.2), rgba(147, 51, 234, 0.2), rgba(var(--primary-rgb), 0.2))",
+              opacity: 0.2,
             }}
           />
-        </motion.h2>
-        
-        <motion.div 
+        </h2>
+
+        <m.div
           className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
           animate={isInView ? { width: 150 } : { width: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
         />
 
-        <motion.p 
+        <m.p
           className="text-lg text-muted-foreground pt-4 pb-8 max-w-2xl mx-auto relative"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -224,43 +170,21 @@ export const Applications = () => {
         >
           Python is used in various fields, from web development to artificial intelligence.
           <br />
-          <motion.span className="text-primary font-medium mt-5 flex items-center justify-center gap-2 text-sm">
+          <m.span className="text-primary font-medium mt-5 flex items-center justify-center gap-2 text-sm">
             <Info width={16} height={16} /> Hover over each section to learn more.
-          </motion.span>
-          
-          {/* Animated underline */}
-          <motion.span
-            className="absolute bottom-6 left-0 h-0.5 w-full"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { 
-              scaleX: [0, 1, 1, 0],
-              background: [
-                "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.5), transparent)",
-                "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.8), transparent)",
-                "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0.5), transparent)",
-                "linear-gradient(to right, transparent, rgba(var(--primary-rgb), 0), transparent)"
-              ]
-            } : { scaleX: 0 }}
-            transition={{ 
-              duration: 3,
-              times: [0, 0.3, 0.7, 1],
-              delay: 1, 
-              repeat: Infinity,
-              repeatDelay: 4
-            }}
-          />
-        </motion.p>
-      </motion.div>
+          </m.span>
+        </m.p>
+      </m.div>
 
       {/* Applications grid */}
-      <motion.div 
+      <m.div 
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
         {applications.map(({ image, title, description, icon, techStack, color }, index) => (
-          <motion.div
+          <m.div
             key={title}
             className="relative perspective-1000"
             initial={{ opacity: 0, y: 60, rotateX: 10 }}
@@ -290,7 +214,7 @@ export const Applications = () => {
               }`}
             >
               {/* Background glow effect */}
-              <motion.div 
+              <m.div 
                 className={`absolute -inset-1 rounded-lg opacity-0 ${color.secondary} -z-10`}
                 animate={{ 
                   opacity: hovered === index ? 0.6 : 0,
@@ -301,24 +225,28 @@ export const Applications = () => {
               />
 
               {/* Rotating gradient border */}
-              <motion.div
+              <m.div
                 className={`absolute -inset-0.5 bg-gradient-to-r ${color.primary} rounded-lg opacity-0 -z-20`}
                 animate={{
                   opacity: hovered === index ? 0.8 : 0,
                   rotate: hovered === index ? 360 : 0,
                 }}
-                transition={{ 
+                transition={{
                   opacity: { duration: 0.3 },
-                  rotate: { duration: 8, ease: "linear", repeat: hovered === index ? Infinity : 0 }
+                  rotate: { duration: 8, ease: "linear" }
                 }}
                 style={{ filter: "blur(10px)" }}
               />
 
               {/* Image section with overlay effects */}
               <div className="relative overflow-hidden">
-                <motion.img 
-                  src={image} 
-                  alt={title} 
+                <m.img
+                  src={image}
+                  alt={title}
+                  loading="lazy"
+                  decoding="async"
+                  width={800}
+                  height={534}
                   className="w-full h-48 object-cover"
                   animate={{
                     scale: hovered === index ? 1.1 : 1,
@@ -328,7 +256,7 @@ export const Applications = () => {
                 />
                 
                 {/* Icon overlay */}
-                <motion.div
+                <m.div
                   className={`absolute top-4 right-4 p-3 rounded-full ${color.secondary} backdrop-blur-sm border ${color.accent}`}
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ 
@@ -342,7 +270,7 @@ export const Applications = () => {
                     type: "spring"
                   }}
                 >
-                  <motion.div
+                  <m.div
                     animate={{
                       color: hovered === index ? "hsl(var(--primary))" : "hsl(var(--foreground))",
                       rotate: hovered === index ? [0, 10, -10, 0] : 0
@@ -353,11 +281,11 @@ export const Applications = () => {
                     }}
                   >
                     {icon}
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
 
                 {/* Shine effect */}
-                <motion.div
+                <m.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                   initial={{ x: "-100%" }}
                   animate={{ x: hovered === index ? "200%" : "-100%" }}
@@ -370,7 +298,7 @@ export const Applications = () => {
                 {/* Tech stack badges */}
                 <AnimatePresence>
                   {hovered === index && (
-                    <motion.div
+                    <m.div
                       className="absolute bottom-2 left-2 flex flex-wrap gap-1"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -378,7 +306,7 @@ export const Applications = () => {
                       transition={{ delay: 0.2, duration: 0.3 }}
                     >
                       {techStack.slice(0, 3).map((tech, techIndex) => (
-                        <motion.span
+                        <m.span
                           key={tech}
                           className={`px-2 py-1 text-xs font-medium rounded-full ${color.secondary} border ${color.accent} backdrop-blur-sm`}
                           initial={{ scale: 0 }}
@@ -386,27 +314,27 @@ export const Applications = () => {
                           transition={{ delay: 0.3 + techIndex * 0.1 }}
                         >
                           {tech}
-                        </motion.span>
+                        </m.span>
                       ))}
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
 
               {/* Content section */}
               <CardHeader className="relative z-10">
-                <motion.div className="flex items-center justify-between">
+                <m.div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-bold flex items-center gap-2">
-                    <motion.span
+                    <m.span
                       animate={{
                         color: hovered === index ? "hsl(var(--primary))" : "hsl(var(--foreground))"
                       }}
                       transition={{ duration: 0.3 }}
                     >
                       {title}
-                    </motion.span>
+                    </m.span>
                     
-                    <motion.div
+                    <m.div
                       animate={{
                         x: hovered === index ? 5 : 0,
                         opacity: hovered === index ? 1 : 0
@@ -414,36 +342,36 @@ export const Applications = () => {
                       transition={{ duration: 0.3 }}
                     >
                       <ArrowRight className="w-4 h-4 text-primary" />
-                    </motion.div>
+                    </m.div>
                   </CardTitle>
                   
                   {/* Sparkle animation */}
                   <AnimatePresence>
                     {hovered === index && (
-                      <motion.div
+                      <m.div
                         initial={{ scale: 0, rotate: 0 }}
                         animate={{ scale: 1, rotate: 180 }}
                         exit={{ scale: 0, rotate: 360 }}
                         transition={{ duration: 0.5 }}
                       >
                         <Sparkles className="w-5 h-5 text-primary" />
-                      </motion.div>
+                      </m.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </m.div>
               </CardHeader>
 
               {/* Expandable description overlay */}
               <AnimatePresence>
                 {hovered === index && (
-                  <motion.div
+                  <m.div
                     className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/90 to-background/70 backdrop-blur-sm flex flex-col justify-end p-6 z-20"
                     initial={{ opacity: 0, y: "100%" }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: "100%" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                   >
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.3 }}
@@ -456,7 +384,7 @@ export const Applications = () => {
                       {/* All tech stack */}
                       <div className="flex flex-wrap gap-2">
                         {techStack.map((tech, techIndex) => (
-                          <motion.span
+                          <m.span
                             key={tech}
                             className={`px-3 py-1 text-sm font-medium rounded-full ${color.secondary} border ${color.accent} backdrop-blur-sm`}
                             initial={{ opacity: 0, scale: 0 }}
@@ -464,32 +392,32 @@ export const Applications = () => {
                             transition={{ delay: 0.3 + techIndex * 0.05 }}
                           >
                             {tech}
-                          </motion.span>
+                          </m.span>
                         ))}
                       </div>
-                    </motion.div>
-                  </motion.div>
+                    </m.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </Card>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Bottom call-to-action */}
-      <motion.div
+      <m.div
         className="flex justify-center mt-16"
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ delay: 2, duration: 0.8 }}
       >
-        <motion.div
+        <m.div
           className="text-center"
         >
-          <motion.h3 className="text-2xl text-muted-foreground mb-4">
+          <m.h3 className="text-2xl text-muted-foreground mb-4">
             Ready to start your Python journey?
-          </motion.h3>
-          <motion.a
+          </m.h3>
+          <m.a
             href="https://github.com/pythoncameroon"
             target="_blank"
             rel="noopener noreferrer"
@@ -498,15 +426,15 @@ export const Applications = () => {
             whileTap={{ scale: 0.95 }}
           >
             <span className="relative z-10">Join Python Cameroon</span>
-            <motion.div
+            <m.div
               className="absolute inset-0 bg-gradient-to-r from-secondary to-primary"
               initial={{ x: "100%" }}
               whileHover={{ x: 0 }}
               transition={{ duration: 0.3 }}
             />
-          </motion.a>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+          </m.a>
+        </m.div>
+      </m.div>
+    </m.section>
   );
 };

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "@/components/Icons";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -42,14 +42,14 @@ interface AnimatedFeatureCardProps extends FeatureProps {
 
 const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatureCardProps) => {
   const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: false, amount: 0.2 });
-  
+  const isInView = useInView(cardRef, { once: true, amount: 0.2 });
+
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       initial={{ opacity: 0, y: 50, rotateY: 15 }}
-      animate={isInView ? 
-        { opacity: 1, y: 0, rotateY: 0 } : 
+      animate={isInView ?
+        { opacity: 1, y: 0, rotateY: 0 } :
         { opacity: 0, y: 50, rotateY: 15 }
       }
       exit={{ opacity: 0, y: -50, rotateY: -15 }}
@@ -59,65 +59,39 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
         damping: 20,
         delay: index * 0.1,
       }}
-      whileHover={{ 
-        scale: 1.05, 
+      whileHover={{
+        scale: 1.05,
         y: -10,
         transition: { duration: 0.2 }
       }}
       className="relative perspective-1000"
     >
-      <motion.div 
+      <div
         className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary via-secondary to-primary opacity-20 blur-sm -z-10"
-        animate={{
-          backgroundPosition: ['0% center', '100% center', '0% center'],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
         style={{ backgroundSize: "200% 100%" }}
       />
-      
+
       <Card className="bg-muted/50 backdrop-blur-sm border-transparent h-full transition-all duration-300 overflow-hidden">
         <CardHeader>
           <CardTitle className="grid gap-4 place-items-center relative">
-            <motion.div
-              whileHover={{ 
+            <m.div
+              whileHover={{
                 rotate: [0, -10, 10, -10, 0],
                 scale: 1.2,
-                transition: { duration: 0.5 } 
+                transition: { duration: 0.5 }
               }}
               className="relative"
             >
-              <motion.div 
+              <div
                 className="absolute inset-0 rounded-full bg-primary"
-                animate={{ 
-                  opacity: [0.2, 0.5, 0.2],
-                  scale: [0.8, 1.2, 0.8],
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity,
-                  delay: index * 0.5 
-                }}
-                style={{ filter: "blur(15px)" }}
+                style={{ filter: "blur(15px)", opacity: 0.2 }}
               />
-              <motion.div 
-                className="relative z-10"
-                animate={{ rotate: 360 }}
-                transition={{ 
-                  duration: 20, 
-                  repeat: Infinity, 
-                  ease: "linear",
-                  delay: index * 0.5 
-                }}
-              >
+              <div className="relative z-10">
                 {icon}
-              </motion.div>
-            </motion.div>
-            
-            <motion.span
+              </div>
+            </m.div>
+
+            <m.span
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
@@ -129,22 +103,22 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
               }}
             >
               {title}
-            </motion.span>
+            </m.span>
           </CardTitle>
         </CardHeader>
-        
+
         <CardContent>
-          <motion.p
+          <m.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
             className="text-xs"
           >
             {description}
-          </motion.p>
+          </m.p>
         </CardContent>
-        
-        <motion.div
+
+        <m.div
           className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50"
           initial={{ scaleX: 0 }}
           whileHover={{ scaleX: 1 }}
@@ -152,23 +126,23 @@ const AnimatedFeatureCard = ({ icon, title, description, index }: AnimatedFeatur
           style={{ transformOrigin: "left" }}
         />
       </Card>
-      
-      <motion.div
+
+      <m.div
         className="absolute -z-10 inset-0 opacity-0 rounded-xl"
         whileHover={{ opacity: 0.2 }}
         transition={{ duration: 0.3 }}
         style={{ filter: "blur(20px)", background: "radial-gradient(circle, rgba(var(--primary-rgb), 0.8) 0%, transparent 70%)" }}
       />
-    </motion.div>
+    </m.div>
   );
 };
 
 export const HowItWorks = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
-  
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+
   return (
-    <motion.section
+    <m.section
       id="howItWorks"
       className="container text-center py-24 sm:py-32 relative overflow-hidden"
       ref={sectionRef}
@@ -177,32 +151,18 @@ export const HowItWorks = () => {
       exit={{ opacity: 0 }}
     >
       <div className="absolute inset-0 -z-10">
-        <motion.div 
+        <div
           className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/10"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1],
-            x: [0, 30, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           style={{ filter: "blur(80px)" }}
         />
-        <motion.div 
+        <div
           className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-secondary/10"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.1, 0.15, 0.1],
-            x: [0, -20, 0],
-            y: [0, 20, 0]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           style={{ filter: "blur(100px)" }}
         />
-        
+
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-[0.03]">
           {Array.from({ length: 7 }).map((_, i) => (
-            <motion.div
+            <m.div
               key={`v-line-${i}`}
               className="h-full w-px bg-primary"
               initial={{ height: 0 }}
@@ -211,7 +171,7 @@ export const HowItWorks = () => {
             />
           ))}
           {Array.from({ length: 5 }).map((_, i) => (
-            <motion.div
+            <m.div
               key={`h-line-${i}`}
               className="h-px w-full bg-primary"
               initial={{ width: 0 }}
@@ -222,66 +182,53 @@ export const HowItWorks = () => {
           ))}
         </div>
       </div>
-      
-      <motion.div
+
+      <m.div
         initial={{ opacity: 0, y: -20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ type: "spring", stiffness: 100, damping: 15 }}
         className="relative"
       >
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold"
-          animate={{ filter: ["blur(0px)", "blur(0.5px)", "blur(0px)"] }}
-          transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
-        >
+        <h2 className="text-3xl md:text-4xl font-bold">
           How It{" "}
-          <motion.span 
+          <span
             className="relative inline-block"
           >
-            <motion.span
+            <span
               className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
-              animate={{ 
-                backgroundPosition: ["0% center", "100% center", "0% center"],
-              }}
-              transition={{ duration: 5, repeat: Infinity, repeatType: "mirror" }}
               style={{ backgroundSize: "200% auto" }}
             >
               Works
-            </motion.span>
-            <motion.span 
+            </span>
+            <span
               className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
-              animate={{ 
-                opacity: [0.1, 0.3, 0.1], 
-                background: [
-                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)",
-                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.8) 0%, transparent 70%)",
-                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)"
-                ]
+              style={{
+                opacity: 0.2,
+                background: "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)"
               }}
-              transition={{ duration: 3, repeat: Infinity, repeatType: "mirror" }}
             />
-          </motion.span>{" "}
+          </span>{" "}
           Step-by-Step Guide
-        </motion.h2>
-        
-        <motion.div
+        </h2>
+
+        <m.div
           className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
           initial={{ width: 0 }}
           animate={isInView ? { width: 80 } : { width: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         />
-      </motion.div>
-      
-      <motion.p
+      </m.div>
+
+      <m.p
         className="md:w-3/4 mx-auto mt-4 mb-20 text-lg text-muted-foreground"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         Explore the power of Python through accessibility, community, scalability, and gamification.
-      </motion.p>
+      </m.p>
 
-      <motion.div 
+      <m.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -298,7 +245,7 @@ export const HowItWorks = () => {
             />
           ))}
         </AnimatePresence>
-      </motion.div>
-    </motion.section>
+      </m.div>
+    </m.section>
   );
 };

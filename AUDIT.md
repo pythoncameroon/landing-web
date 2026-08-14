@@ -69,36 +69,32 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 
 ## P — Performance
 
-### P1 — Bundle JS de 600 kB (189 kB gzip) pour une landing statique 🟠
+### P1 — Bundle JS de 600 kB (189 kB gzip) pour une landing statique 🟠 — ✅ traité (partiellement)
 - **Constat build :** `dist/assets/index-*.js` = 599,81 kB. Cause principale : framer-motion importé dans ~17 fichiers pour des effets majoritairement réalisables en CSS.
-- **Correction :** remplacer les animations simples (fades, slides, gradients animés, soulignements) par des transitions/`@keyframes` CSS ; garder framer-motion uniquement où il apporte (springs au hover des cartes, AnimatePresence du menu). Ajouter `build.rollupOptions.output.manualChunks` pour séparer vendor si pertinent.
-- **Objectif :** < 250 kB minifié. **Vérification :** sortie de `npm run build`.
+- **Correction appliquée :** framer-motion passé en `<LazyMotion features={domAnimation} strict>` (main.tsx) avec composants `m.*` partout (le renderer complet `motion.*` n'est plus bundlé) ; toutes les animations infinies supprimées (voir P2) ; `build.rollupOptions.output.manualChunks` sépare react / framer-motion / i18n.
+- **Résultat :** 590,9 kB → 533,6 kB minifié total (189,2 → 174,0 kB gzip), découpé en 4 chunks cacheables (index 265,8 + react 134,7 + motion 83,7 + i18n 49,4).
+- **Reste à faire pour viser < 250 kB :** supprimer framer-motion des animations d'entrée restantes (CSS pur), et retirer i18next du bundle tant que B4 n'est pas branché (react 134,7 kB + motion 83,7 kB + i18n 49,4 kB = 267 kB de vendors à eux seuls — l'objectif < 250 kB est inatteignable sans ces retraits).
 
-### P2 — Dizaines d'animations infinies qui tournent en permanence (hors écran inclus) 🟠
+### P2 — Dizaines d'animations infinies qui tournent en permanence (hors écran inclus) 🟠 — ✅ traité
 - **Constat :** chaque section a 2 blobs `blur(100–120px)` animés en boucle + 6–12 particules `repeat: Infinity` + titres `backgroundPosition` animés en continu ; `src/components/HeroNetwork.tsx` = canvas 70 nœuds O(n²) à 60 fps ; les fonds ne sont PAS conditionnés à `isInView`.
-- **Problème :** CPU/GPU en continu → batterie, chauffe, scroll saccadé sur mobiles modestes (audience principale au Cameroun).
-- **Correction :** (1) conditionner toutes les animations de fond à `isInView` ; (2) réduire le nombre de particules/blobs ; (3) HeroNetwork : pauser via IntersectionObserver + `document.visibilityState`, réduire NODE_COUNT sur mobile ; (4) supprimer l'animation de flou des titres (`filter: blur(0→0.5→0)` — voir aussi A4) ; (5) passer les `useInView({ once: false })` en `once: true` partout (supprime aussi le clignotement du contenu quand on remonte la page).
-- **Vérification :** profil Chrome Performance : ~0 % CPU au repos une fois la page chargée et immobile.
+- **Correction appliquée :** les ~93 `repeat: Infinity` des fichiers rendus sont supprimés — champs de particules retirés, blobs/glows rendus statiques (opacité figée au niveau médian de l'ancienne animation), gradients de titres statiques, flou animé des titres supprimé (A4) ; `useInView({ once: false })` → `once: true` partout ; HeroNetwork pausé via IntersectionObserver + `visibilitychange` (et gelé si `prefers-reduced-motion`), NODE_COUNT 70 → 55 desktop / 28 mobile. Il ne reste que les animations d'entrée (une seule fois) et les effets au hover.
+- **Vérification :** grep `repeat: Infinity` = 0 dans les fichiers rendus (il en reste dans Features.tsx/HeroCards.tsx, code mort hors bundle — voir Q2) ; smoke test navigateur sans erreur console.
 
-### P3 — Images Unsplash distantes non optimisées + favicon de 428 kB 🟠
-- **`src/containers/Applications.tsx:27–98`** : 6 images Unsplash ~2000 px pour des cartes ~400 px, sans `loading="lazy"` ni `width/height` (CLS), domaine tiers.
-  → Télécharger, recadrer, convertir WebP, servir localement avec `srcset` + `loading="lazy"` + dimensions.
-- **`src/assets/favicon/favicon.svg`** : 428 kB (PNG base64 embarqué ?), référencé dans le `<head>` → re-exporter un vrai SVG vectoriel (< 10 kB) ou retirer la ligne au profit du PNG 96px.
-- **`src/assets/images/flag-cameroon.webp`** : 264 kB (image hero) → recompresser (~80 kB visuellement équivalent).
-- **Vérification :** onglet Network < 1 Mo au premier chargement (hors fonts).
+### P3 — Images Unsplash distantes non optimisées + favicon de 428 kB 🟠 — ✅ traité
+- **Correction appliquée :**
+  - Applications : 6 images téléchargées en WebP 800 px dans `src/assets/applications/` (~410 kB au total, contre ~2000 px distantes), importées localement avec `loading="lazy"` + `decoding="async"` + `width/height`.
+  - `favicon.svg` (428 kB de PNG base64 déguisé en SVG) : supprimé + `<link rel="icon" type="image/svg+xml">` retiré de `index.html` — le PNG 96px et le .ico restent.
+  - `flag-cameroon.webp` : 264 → 117 kB (700 px, qualité 60 via sharp).
+- **Vérification :** `npm run build` — plus aucune requête images.unsplash.com/plus.unsplash.com ; images Applications lazy-loadées.
 
-### P4 — `prefers-reduced-motion` totalement ignoré 🟡
-- **Correction 1 ligne :** wrapper l'app dans `<MotionConfig reducedMotion="user">` (framer-motion) dans `src/main.tsx` ; pour les animations CSS restantes, media query `@media (prefers-reduced-motion: reduce)`.
-- **Gain :** WCAG 2.3.3 + batterie. À faire en même temps que P2.
+### P4 — `prefers-reduced-motion` totalement ignoré 🟡 — ✅ traité
+- **Correction appliquée :** `<MotionConfig reducedMotion="user">` dans `src/main.tsx` ; media query globale `@media (prefers-reduced-motion: reduce)` dans `src/index.css` (animations/transitions CSS neutralisées, `scroll-behavior: auto`) ; HeroNetwork rend une frame statique si reduced-motion.
 
-### P5 — Scroll listener avec layout thrashing dans la Navbar 🟡
-- **Fichier :** `src/layouts/Navbar.tsx:81–111`.
-- **Problème :** à chaque event scroll : `getElementById` + `getBoundingClientRect` par section → recalculs de layout forcés.
-- **Correction :** IntersectionObserver pour `activeSection` ; listener `{ passive: true }` + comparaison simple pour `scrolled`.
+### P5 — Scroll listener avec layout thrashing dans la Navbar 🟡 — ✅ traité
+- **Correction appliquée :** `activeSection` via IntersectionObserver (`rootMargin: "-50% 0px -50% 0px"`) ; le listener scroll ne fait plus que `setScrolled(window.scrollY > 10)` avec `{ passive: true }`. Bonus : listener de `ScrollToTop.tsx` passé en passive aussi.
 
-### P6 — Google Fonts bloquantes 🟢
-- **Fichier :** `index.html:36–38` (DotGothic16 + 4 variantes Space Mono).
-- **Correction :** auto-héberger (fontsource) avec `font-display: swap`, ne garder que les variantes utilisées.
+### P6 — Google Fonts bloquantes 🟢 — ✅ traité
+- **Correction appliquée :** `@fontsource/dotgothic16` + `@fontsource/space-mono` installés, importés dans `src/main.tsx` en sous-ensembles ciblés uniquement (`latin-400` DotGothic16 ; `latin`/`latin-ext` 400+700 Space Mono — les italiques, non utilisées, ne sont plus chargées ; l'import complet de DotGothic16 embarquerait ~120 subsets japonais). `font-display: swap` inclus par fontsource ; liens Google Fonts retirés de `index.html`.
 
 ---
 
