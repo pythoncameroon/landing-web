@@ -126,6 +126,8 @@
 
     body {
         @apply bg-background text-foreground font-space-mono;
+        padding-top: var(--pycon-banner-height, 0px);
+        transition: padding-top 0.2s ease;
     }
 
     h1,
