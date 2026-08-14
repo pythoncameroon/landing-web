@@ -17,7 +17,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LogoIcon } from "@/components/Icons";
-import { LanguageSwitcher } from "@/components/language"; // Import Language Switcher
 import { PyConBanner } from "@/components/PyConBanner";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -250,14 +249,6 @@ export const Navbar = () => {
                         </span>
                       </div>
                     </motion.a>
-
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative p-1"
-                    >
-                      <LanguageSwitcher />
-                    </motion.div>
                   </div>
                 </nav>
               </SheetContent>
@@ -319,14 +310,6 @@ export const Navbar = () => {
                 </span>
               </div>
             </motion.a>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative"
-            >
-              <LanguageSwitcher />
-            </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.05 }}
