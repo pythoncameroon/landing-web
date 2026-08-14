@@ -203,37 +203,36 @@ export const Applications = () => {
               setActiveCard(null);
             }}
           >
+            {/* Halos hors de la Card : dedans, son overflow-hidden + son contexte
+                d'empilement les faisaient flotter AU-DESSUS du fond de carte et
+                rendaient le titre illisible au survol. Ici ils passent derrière
+                la carte et ne forment qu'un halo autour. */}
+            <m.div
+              className={`absolute -inset-1 rounded-lg opacity-0 ${color.secondary} -z-10`}
+              animate={{
+                opacity: hovered === index ? 0.6 : 0,
+                scale: hovered === index ? 1.09 : 1
+              }}
+              transition={{ duration: 0.3 }}
+              style={{ filter: "blur(20px)" }}
+            />
+
+            <m.div
+              className={`absolute -inset-0.5 bg-gradient-to-r ${color.primary} rounded-lg opacity-0 -z-20`}
+              animate={{
+                opacity: hovered === index ? 0.8 : 0,
+                scale: hovered === index ? 1.06 : 1,
+              }}
+              transition={{ duration: 0.3 }}
+              style={{ filter: "blur(10px)" }}
+            />
+
             <Card className={`relative group overflow-hidden transition-all duration-500 border-2 backdrop-blur-sm
-              ${hovered === index ? 
-                `shadow-2xl shadow-primary/20 ${color.accent} scale-105 -translate-y-2` : 
+              ${hovered === index ?
+                `shadow-2xl shadow-primary/20 ${color.accent} scale-105 -translate-y-2` :
                 'border-border/50 hover:border-primary/30'
               }`}
             >
-              {/* Background glow effect */}
-              <m.div 
-                className={`absolute -inset-1 rounded-lg opacity-0 ${color.secondary} -z-10`}
-                animate={{ 
-                  opacity: hovered === index ? 0.6 : 0,
-                  scale: hovered === index ? 1.02 : 1
-                }}
-                transition={{ duration: 0.3 }}
-                style={{ filter: "blur(20px)" }}
-              />
-
-              {/* Rotating gradient border */}
-              <m.div
-                className={`absolute -inset-0.5 bg-gradient-to-r ${color.primary} rounded-lg opacity-0 -z-20`}
-                animate={{
-                  opacity: hovered === index ? 0.8 : 0,
-                  rotate: hovered === index ? 360 : 0,
-                }}
-                transition={{
-                  opacity: { duration: 0.3 },
-                  rotate: { duration: 8, ease: "linear" }
-                }}
-                style={{ filter: "blur(10px)" }}
-              />
-
               {/* Image section with overlay effects */}
               <div className="relative overflow-hidden">
                 <m.img
