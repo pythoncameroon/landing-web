@@ -381,7 +381,9 @@ export const Hero = () => {
           transition={{ delay: 1.8, duration: 0.6 }}
         >
           <motion.a
-            href="#About"
+            href="https://www.python.org/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-6 py-3 bg-primary dark:bg-secondary text-white dark:text-black rounded-lg font-medium relative overflow-hidden group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -396,7 +398,7 @@ export const Hero = () => {
           </motion.a>
 
           <motion.a
-            href="#newsletter"
+            href="mailto:organizers@pythoncameroon.org"
             className="group px-6 py-3 border border-secondary bg-transparent hover:bg-secondary rounded-lg font-medium relative overflow-hidden group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -405,7 +407,7 @@ export const Hero = () => {
               className="relative z-10 bg-gradient-to-r from-primary to-secondary group-hover:to-primary text-transparent bg-clip-text"
               transition={{ duration: 0.3 }}
             >
-              Newsletter
+              Contact Us
             </motion.span>
             <motion.div
               className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-primary to-transparent"

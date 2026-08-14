@@ -1,29 +1,28 @@
-import { useState, useRef } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
+// Pas encore de backend newsletter (voir AUDIT.md B3) : on redirige vers un
+// canal d'inscription réel plutôt que de simuler un envoi qui n'aboutit nulle part.
+const COMMUNITY_URL = "https://discord.gg/TWVCKCe3Dt";
+
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
-  
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
+
+    window.open(COMMUNITY_URL, "_blank", "noopener,noreferrer");
+    setEmail("");
+    setIsSuccess(true);
+
     setTimeout(() => {
-      console.log("Subscribed with:", email);
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setEmail("");
-      
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 3000);
-    }, 1500);
+      setIsSuccess(false);
+    }, 3000);
   };
 
   return (
@@ -227,6 +226,8 @@ export const Newsletter = () => {
               />
               
               <Input
+                type="email"
+                required
                 placeholder="pythoncameroon@gmail.com"
                 className="bg-muted/50 dark:bg-muted/80 backdrop-blur-sm h-12 pl-4 pr-4 border-primary/20 focus-visible:ring-primary dark:border-secondary/20 dark:focus-visible:ring-secondary"
                 aria-label="email"
@@ -267,9 +268,9 @@ export const Newsletter = () => {
               whileTap={{ scale: 0.95 }}
               className="relative overflow-hidden flex justify-center"
             >
-              <Button 
-                className="relative h-12 min-w-[120px] overflow-hidden hover:text-primary dark:hover:text-secondary dark:bg-secondary dark:hover:bg-transparent" 
-                disabled={isSubmitting || isSuccess}
+              <Button
+                className="relative h-12 min-w-[120px] overflow-hidden hover:text-primary dark:hover:text-secondary dark:bg-secondary dark:hover:bg-transparent"
+                disabled={isSuccess}
               >
                 <AnimatePresence mode="wait">
                   {isSuccess ? (
@@ -281,35 +282,20 @@ export const Newsletter = () => {
                       transition={{ duration: 0.2 }}
                       className="flex items-center gap-2"
                     >
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
                         strokeLinejoin="round"
                       >
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
-                      Subscribed
-                    </motion.div>
-                  ) : isSubmitting ? (
-                    <motion.div
-                      key="submitting"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-2"
-                    >
-                      <motion.div
-                        className="h-4 w-4 rounded-full border-2 border-current border-r-transparent"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                      Processing
+                      Redirected
                     </motion.div>
                   ) : (
                     <motion.div
@@ -349,7 +335,7 @@ export const Newsletter = () => {
               transition={{ duration: 0.3 }}
               className="text-center mt-4 text-primary"
             >
-              Thanks for subscribing! Check your email for updates.
+              Opening our Discord in a new tab — join to get updates!
             </motion.div>
           )}
         </AnimatePresence>
