@@ -125,15 +125,16 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 
 ## S — SEO / partage social
 
-### S1 — Meta OG/Twitter cassées pour les crawlers 🟠
+### S1 — Meta OG/Twitter cassées pour les crawlers 🟠 — ✅ traité
 - **Fichier :** `index.html`.
 - **Problèmes :** `og:url` et `twitter:url` pointent vers `https://github.com/pythoncameroon/landing-web` (le repo !) au lieu du site en prod ; `og:image`/`twitter:image` sont réécrites par Vite en chemin **relatif** `/assets/og-image-xxx.png` alors que les crawlers exigent une URL **absolue** → pas d'aperçu image sur FB/LinkedIn/X.
-- **Correction :** déterminer l'URL canonique de prod (demander à l'équipe : domaine Firebase ? custom ?), mettre `og:url` dessus, déplacer `og-image.png` dans `public/` et référencer `https://<domaine>/og-image.png` en absolu. Ajouter `<link rel="canonical">`.
-- **Vérification :** debuggers de partage (opengraph.xyz / Facebook Sharing Debugger) après déploiement.
+- **Correction appliquée :** URL canonique déterminée par vérification directe : `https://pythoncameroon.org` (domaine custom du projet Firebase `python-cameroon` ; `www.` redirige vers l'apex, `python-cameroon.web.app` sert le même site). `og:url`/`twitter:url` pointent dessus ; `og-image.png` déplacé dans `public/` et référencé en absolu `https://pythoncameroon.org/og-image.png` (+ `og:image:width/height/alt`, 1200×630) ; `<link rel="canonical">`, `og:site_name` et `<meta name="theme-color">` ajoutés.
+- **Vérification :** `npm run build` — les URLs absolues survivent au build (Vite ne les réécrit pas) ; reste à passer les debuggers de partage (opengraph.xyz / Facebook Sharing Debugger) après déploiement.
 
-### S2 — robots.txt, sitemap, données structurées 🟢
-- Créer `public/robots.txt` (allow all + lien sitemap), `public/sitemap.xml` (une URL), JSON-LD `Organization` (nom, logo, sameAs vers GitHub/X/LinkedIn/Discord).
-- Déplacer aussi favicons + `site.webmanifest` de `src/assets/favicon/` vers `public/` (convention Vite ; vérifier que les icônes référencées dans le manifest résolvent en prod).
+### S2 — robots.txt, sitemap, données structurées 🟢 — ✅ traité
+- **Correction appliquée :** `public/robots.txt` (allow all + lien sitemap), `public/sitemap.xml` (une URL, `lastmod` 2026-08-15), JSON-LD `Organization` dans `index.html` (nom, url, logo 512px, email organizers@, sameAs GitHub/X/LinkedIn/YouTube/Discord).
+- Favicons + `site.webmanifest` + `og-image.png` déplacés de `src/assets/` vers `public/` (chemins racine stables) ; manifest corrigé (`MyWebSite` → `Python Cameroon`, `theme_color` `#04906D`) — ses icônes `/web-app-manifest-*.png` résolvent désormais en prod. `firebase.json` : règle de cache `max-age=3600` ajoutée pour ces fichiers racine non hashés (sinon le glob `**/*.png` les rendait `immutable` 1 an).
+- **Vérification :** `npm run build` — robots.txt, sitemap.xml, og-image.png, favicons et manifest présents à la racine de `dist/`.
 
 ---
 
