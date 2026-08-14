@@ -60,7 +60,7 @@ export const Newsletter = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative"
         >
-          <h3 className="text-center text-4xl md:text-5xl font-bold">
+          <h2 className="text-center text-4xl md:text-5xl font-bold">
             Join Our Daily{" "}
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text">
@@ -74,7 +74,7 @@ export const Newsletter = () => {
                 }}
               />
             </span>
-          </h3>
+          </h2>
           
           <m.div 
             className="h-1 w-0 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"

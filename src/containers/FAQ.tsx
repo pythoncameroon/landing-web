@@ -1,6 +1,12 @@
 import { useState, useRef } from "react";
-import { m, useInView, AnimatePresence } from "framer-motion";
-import { ChevronDown, MessageCircle, HelpCircle, Sparkles } from "lucide-react";
+import { m, useInView } from "framer-motion";
+import { MessageCircle, HelpCircle, Sparkles } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface FAQProps {
   question: string;
@@ -42,18 +48,9 @@ const FAQList: FAQProps[] = [
 ];
 
 export const FAQ = () => {
-  const [openItems, setOpenItems] = useState<string[]>([]);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-
-  const toggleItem = (value: string) => {
-    setOpenItems(prev => 
-      prev.includes(value) 
-        ? prev.filter(item => item !== value)
-        : [...prev, value]
-    );
-  };
 
   return (
     <m.section 
@@ -128,132 +125,82 @@ export const FAQ = () => {
         </m.p>
       </m.div>
 
-      {/* FAQ Accordion */}
-      <m.div 
-        className="max-w-4xl mx-auto space-y-4"
+      {/* FAQ Accordion — Radix via ui/accordion : aria-expanded/aria-controls et
+          navigation clavier fournis, au lieu du bouton fait main (AUDIT.md A2) */}
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ delay: 0.7, duration: 0.8 }}
       >
-        {FAQList.map(({ question, answer, value }: FAQProps, index) => {
-          const isOpen = openItems.includes(value);
-          const isHovered = hoveredItem === value;
-          
-          return (
-            <m.div
-              key={value}
-              className="relative perspective-1000"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
-              onMouseEnter={() => setHoveredItem(value)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              {/* Animated border gradient */}
-              <m.div
-                className="absolute -inset-0.5 rounded-xl opacity-0 -z-10"
-                animate={{ opacity: isHovered ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                style={{
-                  background: "linear-gradient(45deg, rgba(var(--primary-rgb), 0.5), rgba(147, 51, 234, 0.5))",
-                }}
-              />
+        <Accordion type="multiple" className="max-w-4xl mx-auto space-y-4">
+          {FAQList.map(({ question, answer, value }: FAQProps, index) => {
+            const isHovered = hoveredItem === value;
 
+            return (
               <m.div
-                className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden"
-                whileHover={{ 
-                  y: -2,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
-                }}
-                transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                key={value}
+                className="relative perspective-1000"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
+                onMouseEnter={() => setHoveredItem(value)}
+                onMouseLeave={() => setHoveredItem(null)}
               >
-                {/* Question header */}
-                <m.button
-                  className="w-full p-6 text-left flex items-center justify-between group"
-                  onClick={() => toggleItem(value)}
-                  whileTap={{ scale: 0.98 }}
+                {/* Animated border gradient */}
+                <m.div
+                  className="absolute -inset-0.5 rounded-xl opacity-0 -z-10"
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    background: "linear-gradient(45deg, rgba(var(--primary-rgb), 0.5), rgba(147, 51, 234, 0.5))",
+                  }}
+                />
+
+                <m.div
+                  className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden"
+                  whileHover={{
+                    y: -2,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                  }}
+                  transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
                 >
-                  <div className="flex items-center gap-4 flex-1">
+                  <AccordionItem value={value} className="border-b-0">
+                    <AccordionTrigger className="p-6 hover:no-underline text-left group gap-4">
+                      <span className="flex items-center gap-4 flex-1">
+                        <span className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <HelpCircle className="w-5 h-5 text-primary dark:text-secondary" />
+                        </span>
+
+                        <span className="text-lg font-semibold flex-1 group-hover:text-primary transition-colors duration-300">
+                          {question}
+                        </span>
+                      </span>
+                    </AccordionTrigger>
+
+                    <AccordionContent className="px-6 pb-6 pl-20">
+                      <div className="text-muted-foreground leading-relaxed">
+                        {answer}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  {/* Subtle glow effect */}
+                  {isHovered && (
                     <m.div
-                      className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0"
+                      className="absolute inset-0 rounded-xl opacity-50 -z-10"
+                      initial={{ opacity: 0 }}
                       animate={{
-                        backgroundColor: isOpen ? "rgba(var(--primary-rgb), 0.2)" : "rgba(var(--primary-rgb), 0.1)",
-                        scale: isOpen ? 1.1 : 1
+                        opacity: 0.5,
+                        boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.2)"
                       }}
                       transition={{ duration: 0.3 }}
-                    >
-                      <m.div
-                        animate={{ rotate: isOpen ? 360 : 0 }}
-                        transition={{ duration: 0.5, type: "spring" }}
-                      >
-                        <HelpCircle className="w-5 h-5 text-primary dark:text-secondary" />
-                      </m.div>
-                    </m.div>
-                    
-                    <m.h3 
-                      className="text-lg font-semibold flex-1 group-hover:text-primary transition-colors duration-300"
-                      animate={{ 
-                        x: isOpen ? 5 : 0,
-                        color: isOpen ? "hsl(var(--primary))" : "hsl(var(--foreground))"
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {question}
-                    </m.h3>
-                  </div>
-                  
-                  <m.div
-                    animate={{ 
-                      rotate: isOpen ? 180 : 0,
-                      scale: isHovered ? 1.1 : 1
-                    }}
-                    transition={{ duration: 0.3, type: "spring" }}
-                  >
-                    <ChevronDown className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-                  </m.div>
-                </m.button>
-
-                {/* Answer content */}
-                <AnimatePresence>
-                  {isOpen && (
-                    <m.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <m.div
-                        className="px-6 pb-6 pl-20"
-                        initial={{ y: -10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{ delay: 0.1, duration: 0.3 }}
-                      >
-                        <div className="text-muted-foreground leading-relaxed">
-                          {answer}
-                        </div>
-                      </m.div>
-                    </m.div>
+                    />
                   )}
-                </AnimatePresence>
-
-                {/* Subtle glow effect */}
-                {isHovered && (
-                  <m.div
-                    className="absolute inset-0 rounded-xl opacity-50 -z-10"
-                    initial={{ opacity: 0 }}
-                    animate={{ 
-                      opacity: 0.5,
-                      boxShadow: "0 0 30px rgba(var(--primary-rgb), 0.2)"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
+                </m.div>
               </m.div>
-            </m.div>
-          );
-        })}
+            );
+          })}
+        </Accordion>
       </m.div>
 
       {/* Contact section */}

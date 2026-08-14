@@ -100,26 +100,26 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 
 ## A — Accessibilité
 
-### A1 — Contenu essentiel uniquement au hover 🟡
+### A1 — Contenu essentiel uniquement au hover 🟡 — ✅ traité
 - **`src/containers/Applications.tsx`** : descriptions + tech stack visibles seulement au survol (« Hover over each section to learn more ») → invisible au clavier et sur tactile (majorité du trafic). **`src/containers/Sponsors.tsx`** : « Visit » uniquement au hover.
-- **Correction :** afficher le contenu par défaut, ou le rendre toggleable au tap/focus (et déclencher aussi sur `onFocus`).
+- **Correction appliquée :** Applications — description + tech stack complet affichés en permanence dans un `CardContent` ; overlay hover-only, badges hover sur l'image et mention « Hover over each section » supprimés. Sponsors — `onFocus`/`onBlur` sur le lien déclenchent les mêmes révélations que le hover (le « Visit » apparaît au focus clavier ; au tactile, le tap navigue directement).
 
-### A2 — FAQ accordéon fait main sans ARIA alors que Radix est installé 🟡
+### A2 — FAQ accordéon fait main sans ARIA alors que Radix est installé 🟡 — ✅ traité
 - **Fichier :** `src/containers/FAQ.tsx:240` (bouton custom sans `aria-expanded`/`aria-controls`).
-- **Correction :** utiliser `src/components/ui/accordion.tsx` (wrapper Radix déjà présent et inutilisé) — accessibilité gratuite, moins de code. Conserver le style visuel actuel.
+- **Correction appliquée :** accordéon remplacé par `ui/accordion.tsx` (Radix, `type="multiple"`) — ARIA + navigation clavier fournis. Style visuel conservé (cartes, halo hover, icône HelpCircle) ; le chevron tourne via `data-state` Radix.
 
-### A3 — Bouton burger sans nom accessible 🟡
+### A3 — Bouton burger sans nom accessible 🟡 — ✅ traité
 - **Fichier :** `src/layouts/Navbar.tsx:182–187` : le `<span class="sr-only">` est enfant de l'icône SVG lucide au lieu du bouton.
-- **Correction :** déplacer le sr-only comme enfant direct du `SheetTrigger` (ou `aria-label="Ouvrir le menu"` sur le trigger).
+- **Correction appliquée :** `<span class="sr-only">Open menu</span>` déplacé en enfant direct du `SheetTrigger` ; icône `Menu` passée en `aria-hidden`.
 
-### A4 — Flou animé permanent sur les titres 🟡
+### A4 — Flou animé permanent sur les titres 🟡 — ✅ traité (avec P2)
 - **Constat :** quasi tous les titres ont `animate={{ filter: ["blur(0px)", "blur(0.5px)", "blur(0px)"] }}` en boucle → texte légèrement flou en continu, fatigue visuelle.
-- **Correction :** supprimer cet effet partout (Hero, Sponsors, HowItWorks, Services, Newsletter, Team, FAQ, Applications, Footer). Se combine avec P2.
+- **Correction appliquée :** effet supprimé partout lors du traitement de P2.
 
-### A5 — Hiérarchie de titres + contrastes + `--muted` jaune vif 🟡
-- **Titres :** hero = h1 « Python is » + h2 « Fun! » (à fusionner en un seul h1) ; Newsletter titre en h3 ; compteurs Statistics en h2 (→ `p` ou `div`). Une seule h1 par page, h2 pour les sections.
-- **Contraste :** vérifier le jaune `--secondary` en texte/dégradé sur fond clair (WCAG AA 4.5:1) ; `text-[9px]` dans PyConBanner trop petit → 11–12 px min.
-- **`src/App.css:83`** : `--muted: 50, 96%, 59%` = jaune vif pour une couleur « muted » → remettre un gris neutre (ex. `240 4.8% 95.9%`) et vérifier les usages existants de `bg-muted`.
+### A5 — Hiérarchie de titres + contrastes + `--muted` jaune vif 🟡 — ✅ traité
+- **Titres :** hero fusionné en un seul h1 (deux lignes en `span.block`) ; Newsletter h3 → h2 ; compteurs Statistics h2 → `div`. Une seule h1 par page, h2 pour les sections, vérifié par grep.
+- **Contraste :** `--secondary` clair assombri `50 96% 59%` → `50 96% 32%` (~3.6:1 sur blanc, AA texte large ; l'ancien jaune tenait ~1.5:1 — le `.dark` garde le jaune vif). Hero : `to-[#FFE873]` limité au dark (`to-[#B8860B]` en clair). PyConBanner : `text-[9px]` → `text-[11px] sm:text-xs`. ⚠️ Passe visuelle light recommandée : le jaune de marque devient doré foncé en thème clair partout où il sert de texte/fond.
+- **`--muted` clair :** `50 96% 59%` → gris neutre `240 4.8% 95.9%` (impacte input Newsletter `bg-muted/50` et hover cartes Statistics — désormais gris au lieu de jaune).
 
 ---
 

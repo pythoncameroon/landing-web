@@ -84,7 +84,8 @@ export const Statistics = () => {
     };
 
     return (
-      <m.h2
+      // div et non h2 : un chiffre animé n'est pas un titre de section (AUDIT.md A5)
+      <m.div
         ref={counterRef}
         className="text-3xl sm:text-4xl font-bold relative"
         initial={{ opacity: 0, scale: 0.5 }}
@@ -113,7 +114,7 @@ export const Statistics = () => {
               "radial-gradient(circle, rgba(var(--primary-rgb), 1) 0%, transparent 70%)"
           }}
         />
-      </m.h2>
+      </m.div>
     );
   };
 

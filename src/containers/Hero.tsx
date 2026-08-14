@@ -227,27 +227,30 @@ export const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          <h1 className="overflow-hidden py-1">
-            <m.span
-              className="inline-block bg-gradient-to-r from-secondary to-[#FFE873] text-transparent bg-clip-text relative"
-              variants={wordVariants}
-            >
-              <SplitTextAnimation text="Python" className="" delay={0.4} />
-              <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#FFD43B]/10" />
-            </m.span>{" "}
-            <m.span className="inline-block" variants={wordVariants}>
-              is
-            </m.span>
-          </h1>{" "}
-          <h2 className="overflow-hidden py-1">
-            <m.span
-              className="inline-block bg-gradient-to-r from-primary via-primary to-[#4B8BBE] text-transparent bg-clip-text relative"
-              variants={wordVariants}
-            >
-              <SplitTextAnimation text="Fun!" className="" delay={0.8} />
-              <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#306998]/10" />
-            </m.span>
-          </h2>
+          {/* Un seul h1 pour la page — les deux lignes restent visuellement séparées (AUDIT.md A5) */}
+          <h1 className="py-1">
+            <span className="block overflow-hidden">
+              <m.span
+                className="inline-block bg-gradient-to-r from-secondary to-[#B8860B] dark:to-[#FFE873] text-transparent bg-clip-text relative"
+                variants={wordVariants}
+              >
+                <SplitTextAnimation text="Python" className="" delay={0.4} />
+                <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#FFD43B]/10" />
+              </m.span>{" "}
+              <m.span className="inline-block" variants={wordVariants}>
+                is
+              </m.span>
+            </span>
+            <span className="block overflow-hidden">
+              <m.span
+                className="inline-block bg-gradient-to-r from-primary via-primary to-[#4B8BBE] text-transparent bg-clip-text relative"
+                variants={wordVariants}
+              >
+                <SplitTextAnimation text="Fun!" className="" delay={0.8} />
+                <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#306998]/10" />
+              </m.span>
+            </span>
+          </h1>
         </m.section>
 
         <m.p

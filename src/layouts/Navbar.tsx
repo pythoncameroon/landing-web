@@ -137,14 +137,13 @@ export const Navbar = () => {
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2 relative">
+                <span className="sr-only">Open menu</span>
                 <m.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   className="relative"
                 >
-                  <Menu className="flex md:hidden h-5 w-5">
-                    <span className="sr-only">Menu Icon</span>
-                  </Menu>
+                  <Menu aria-hidden="true" className="flex md:hidden h-5 w-5" />
                   {/* Notification dot */}
                   <div className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-primary opacity-70" />
                 </m.div>

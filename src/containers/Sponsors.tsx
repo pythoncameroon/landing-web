@@ -137,6 +137,9 @@ export const Sponsors = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-4 relative"
+                // Le focus clavier déclenche les mêmes révélations que le hover (AUDIT.md A1)
+                onFocus={() => setHoveredIndex(index)}
+                onBlur={() => setHoveredIndex(null)}
               >
                 {/* Logo container with effects */}
                 <m.div
