@@ -1,12 +1,12 @@
 :root {
-    --primary-rgb: 166, 95%, 29%;
-    --secondary-rgb: 50, 96%, 59%;
+    --primary-rgb: 4, 144, 111;
+    --secondary-rgb: 251, 217, 50;
     /* For green, adjust based on your theme */
 }
 
 .dark {
-    --primary-rgb: 166, 95%, 29%;
-    --secondary-rgb: 50, 96%, 59%;
+    --primary-rgb: 4, 144, 111;
+    --secondary-rgb: 251, 217, 50;
     /* Adjust for dark mode */
 }
 

@@ -114,9 +114,9 @@ export const Statistics = () => {
           animate={{ 
             opacity: counterInView ? [0.1, 0.3, 0.1] : 0,
             background: [
-              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 70%)",
-              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 80%)",
-              "radial-gradient(circle, hsl(var(--primary-rgb)) 0%, transparent 70%)"
+              "radial-gradient(circle, rgba(var(--primary-rgb), 1) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(var(--primary-rgb), 1) 0%, transparent 80%)",
+              "radial-gradient(circle, rgba(var(--primary-rgb), 1) 0%, transparent 70%)"
             ]
           }}
           transition={{ 
