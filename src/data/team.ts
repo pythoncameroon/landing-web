@@ -11,10 +11,11 @@ export const teamData = [{
     },
     {
         name: "Edmond Makolle",
-        role: "Co-Lead, Mentorship / Learning Coordinator",
+        role: "Co-Lead, Mentorship & Learning Coordinator",
         image: edmond,
         links: {
             linkedIn: "https://www.linkedin.com/in/edmondmakolle",
+            website: "https://landing.edmondmakolle.com",
         }
     },
     {

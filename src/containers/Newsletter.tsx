@@ -2,6 +2,8 @@ import { useState, useRef, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { m, useInView, AnimatePresence } from "framer-motion";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
 
 // Pas encore de backend newsletter (voir AUDIT.md B3) : on redirige vers un
 // canal d'inscription réel plutôt que de simuler un envoi qui n'aboutit nulle part.
@@ -42,55 +44,25 @@ export const Newsletter = () => {
       />
 
       <div className="container py-24 sm:py-32 relative">
-        <div className="absolute inset-0 -z-10">
-          <div
-            className="absolute top-0 left-1/4 w-64 h-64 rounded-full bg-primary/10"
-            style={{ filter: "blur(80px)", opacity: 0.15 }}
-          />
+        <GlowBackground
+          blobs={[
+            { className: "top-0 left-1/4 w-64 h-64 bg-primary/10", blur: 80, opacity: 0.15 },
+            { className: "bottom-0 right-1/4 w-80 h-80 bg-secondary", blur: 100, opacity: 0.12 },
+          ]}
+        />
 
-          <div
-            className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-secondary"
-            style={{ filter: "blur(100px)", opacity: 0.12 }}
-          />
-        </div>
-
-        <m.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative"
-        >
-          <h2 className="text-center text-4xl md:text-5xl font-bold">
-            Join Our Daily{" "}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text">
-                Newsletter
-              </span>
-              <span
-                className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
-                style={{
-                  background: "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)",
-                  opacity: 0.2,
-                }}
-              />
-            </span>
-          </h2>
-          
-          <m.div 
-            className="h-1 w-0 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
-            animate={isInView ? { width: 80 } : { width: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          />
-        </m.div>
-
-        <m.p 
-          className="text-lg text-muted-foreground text-center mt-6 mb-12 relative"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Stay updated with Python Cameroon Community.
-        </m.p>
+        <SectionHeader
+          isInView={isInView}
+          title={
+            <>
+              Join Our Daily <TitleGradient>Newsletter</TitleGradient>
+            </>
+          }
+          titleClassName="text-4xl md:text-5xl font-bold relative"
+          subtitle="Stay updated with Python Cameroon Community."
+          subtitleClassName="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto"
+          dividerWidth={80}
+        />
 
         <m.div
           initial={{ opacity: 0, y: 30, scale: 0.9 }}

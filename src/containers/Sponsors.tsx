@@ -1,24 +1,9 @@
 import { useState, useRef } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
-
-interface SponsorProps {
-  icon: string;
-  name: string;
-  link: string;
-}
-
-const sponsors: SponsorProps[] = [
-  {
-    icon: "https://avatars.githubusercontent.com/u/142497557?s=200&v=4",
-    name: "Django Cameroon",
-    link: "https://github.com/djangocameroon",
-  },
-  {
-    icon: "https://avatars.githubusercontent.com/u/183505611?s=200&v=4",
-    name: "Angular Cameroon",
-    link: "https://github.com/ngcameroon",
-  },
-];
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
+import { sponsorsData } from "@/data/sponsors";
+import type { SponsorProps } from "@/types/sections";
 
 export const Sponsors = () => {
   const sectionRef = useRef(null);
@@ -34,65 +19,22 @@ export const Sponsors = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-10 left-1/4 w-72 h-72 rounded-full bg-primary/10"
-          style={{ filter: "blur(80px)" }}
-        />
+      <GlowBackground
+        gridOpacity={0.03}
+        blobs={[
+          { className: "top-10 left-1/4 w-72 h-72 bg-primary/10", blur: 80 },
+          { className: "-bottom-20 right-1/3 w-80 h-80 bg-secondary/10", blur: 100 },
+        ]}
+      />
 
-        <div
-          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-secondary/10"
-          style={{ filter: "blur(100px)" }}
-        />
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMyMDIwMjAiIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMzBjMCAxNi41Ny0xMy40MyAzMC0zMCAzMFMwIDQ2LjU3IDAgMzAgMTMuNDMgMCAzMCAwczMwIDEzLjQzIDMwIDMweiIgc3Ryb2tlPSIjZmZmZmZmMDUiIHN0cm9rZS13aWR0aD0iLjUiLz48cGF0aCBkPSJNMTI5LjUgMTB2MTQwTTEyOSAyOWgtMTI5TTE0My41IDI5aC0xNC41IiBzdHJva2U9IiNmZmZmZmYwNSIgc3Ryb2tlLXdpZHRoPSIuNSIvPjwvZz48L3N2Zz4=')] opacity-[0.03]" />
-      </div>
-
-      {/* Section heading */}
-      <m.div
-        className="relative mb-16"
-        initial={{ opacity: 0, y: -20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2
-          className="text-center text-2xl md:text-3xl font-bold relative inline-block mx-auto w-full"
-        >
-          <span
-            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
-          >
-            Partnering Organisations
-          </span>
-
-          {/* Glowing effect behind text */}
-          <span
-            className="absolute -inset-1 rounded-lg blur-xl -z-10"
-            style={{
-              background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.2), rgba(147, 51, 234, 0.2), rgba(var(--primary-rgb), 0.2))",
-              opacity: 0.2,
-            }}
-          />
-        </h2>
-
-        {/* Animated divider */}
-        <m.div
-          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-4"
-          animate={isInView ? { width: 120 } : { width: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        />
-
-        {/* Subtitle */}
-        <m.p
-          className="text-center text-muted-foreground mt-4 max-w-md mx-auto relative"
-          initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 0.8, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
-          Our amazing partners who help make the Python Cameroon community thrive and grow.
-        </m.p>
-      </m.div>
+      <SectionHeader
+        isInView={isInView}
+        title={<TitleGradient>Partnering Organisations</TitleGradient>}
+        titleClassName="text-2xl md:text-3xl font-bold relative"
+        subtitle="Our amazing partners who help make the Python Cameroon community thrive and grow."
+        subtitleClassName="text-muted-foreground mt-4 max-w-md mx-auto"
+        dividerWidth={120}
+      />
 
       {/* Sponsors gallery */}
       <m.div
@@ -113,7 +55,7 @@ export const Sponsors = () => {
         />
 
         <AnimatePresence>
-          {sponsors.map(({ icon, name, link }: SponsorProps, index) => (
+          {sponsorsData.map(({ icon, name, link }: SponsorProps, index) => (
             <m.div
               key={name}
               className="text-center perspective-1000"

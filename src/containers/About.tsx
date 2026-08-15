@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { m, useInView } from "framer-motion";
 import { Statistics } from "@/components/Statistics";
+import { GlowBackground } from "@/components/section/GlowBackground";
 import pilot from "@/assets/pilot.png";
 
 export const About = () => {
@@ -22,18 +23,12 @@ export const About = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-10 left-1/4 w-72 h-72 rounded-full bg-primary"
-          style={{ filter: "blur(100px)", opacity: 0.1 }}
-        />
-
-        <div
-          className="absolute -bottom-20 right-1/3 w-80 h-80 rounded-full bg-secondary"
-          style={{ filter: "blur(120px)", opacity: 0.1 }}
-        />
-      </div>
+      <GlowBackground
+        blobs={[
+          { className: "top-10 left-1/4 w-72 h-72 bg-primary", blur: 100, opacity: 0.1 },
+          { className: "-bottom-20 right-1/3 w-80 h-80 bg-secondary", blur: 120, opacity: 0.1 },
+        ]}
+      />
 
       <m.div
         className="rounded-lg py-12 relative overflow-hidden backdrop-blur-sm  perspective-1000"

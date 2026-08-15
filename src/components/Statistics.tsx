@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { m, useInView } from "framer-motion";
+import { GlowBackground } from "@/components/section/GlowBackground";
 
 export const Statistics = () => {
   const sectionRef = useRef(null);
@@ -127,18 +128,12 @@ export const Statistics = () => {
       transition={{ duration: 0.8 }}
       className="relative"
     >
-      {/* Background glow effects */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-1/2 left-1/4 w-32 h-32 rounded-full bg-primary/10"
-          style={{ filter: "blur(40px)", opacity: 0.15 }}
-        />
-
-        <div
-          className="absolute top-1/2 right-1/4 w-24 h-24 rounded-full bg-secondary/10"
-          style={{ filter: "blur(30px)", opacity: 0.12 }}
-        />
-      </div>
+      <GlowBackground
+        blobs={[
+          { className: "top-1/2 left-1/4 w-32 h-32 bg-primary/10", blur: 40, opacity: 0.15 },
+          { className: "top-1/2 right-1/4 w-24 h-24 bg-secondary/10", blur: 30, opacity: 0.12 },
+        ]}
+      />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
         {stats.map(({ description, targetNumber, suffix }: statsProps, index) => (

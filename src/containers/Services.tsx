@@ -3,6 +3,8 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { ChartIcon, WalletIcon, MagnifierIcon } from "@/components/Icons";
 import cubeLeg from "../assets/cube-leg.png";
 import { m, useInView, AnimatePresence } from "framer-motion";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { TitleGradient } from "@/components/section/SectionHeader";
 
 interface ServiceProps {
   title: string;
@@ -43,16 +45,12 @@ export const Services = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/10"
-          style={{ filter: "blur(80px)" }}
-        />
-        <div
-          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-secondary/10"
-          style={{ filter: "blur(100px)" }}
-        />
-      </div>
+      <GlowBackground
+        blobs={[
+          { className: "top-20 right-20 w-64 h-64 bg-primary/10", blur: 80 },
+          { className: "bottom-40 -left-20 w-80 h-80 bg-secondary/10", blur: 100 },
+        ]}
+      />
 
       <m.div
         className="grid lg:grid-cols-[1fr,1fr] gap-8 place-items-center"
@@ -66,20 +64,7 @@ export const Services = () => {
           transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            <span
-              className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative inline-block"
-              style={{ backgroundSize: "200% 100%" }}
-            >
-              Client-Centric
-              <span
-                className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
-                style={{
-                  opacity: 0.2,
-                  background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.2), rgba(147, 51, 234, 0.2), rgba(var(--primary-rgb), 0.2))",
-                }}
-              />
-            </span>{" "}
-            Services
+            <TitleGradient>Client-Centric</TitleGradient> Services
           </h2>
 
           <m.p

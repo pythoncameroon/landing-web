@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { teamData } from "@/data/team";
 import type { TeamProps } from "@/types/sections";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
 
 // Enhanced image component with fallback system
 const ProfileImage = ({
@@ -77,78 +79,26 @@ export const Team = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-10 left-1/5 w-96 h-96 rounded-full bg-primary"
-          style={{ filter: "blur(120px)", opacity: 0.45 }}
-        />
+      <GlowBackground
+        gridOpacity={0.02}
+        blobs={[
+          { className: "top-10 left-1/5 w-96 h-96 bg-primary", blur: 120, opacity: 0.45 },
+          { className: "bottom-20 right-1/4 w-80 h-80 bg-secondary", blur: 100, opacity: 0.55 },
+        ]}
+      />
 
-        <div
-          className="absolute bottom-20 right-1/4 w-80 h-80 rounded-full bg-secondary"
-          style={{ filter: "blur(100px)", opacity: 0.55 }}
-        />
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMyMDIwMjAiIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMzBjMCAxNi41Ny0xMy40MyAzMC0zMCAzMFMwIDQ2LjU3IDAgMzAgMTMuNDMgMCAzMCAwczMwIDEzLjQzIDMwIDMweiIgc3Ryb2tlPSIjZmZmZmZmMDUiIHN0cm9rZS13aWR0aD0iLjUiLz48cGF0aCBkPSJNMTI5LjUgMTB2MTQwTTEyOSAyOWgtMTI5TTE0My41IDI5aC0xNC41IiBzdHJva2U9IiNmZmZmZmYwNSIgc3Ryb2tlLXdpZHRoPSIuNSIvPjwvZz48L3N2Zz4=')] opacity-[0.02]" />
-
-      </div>
-
-      {/* Section header */}
-      <m.div
-        className="relative mb-16 text-center"
-        initial={{ opacity: 0, y: -30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-        transition={{ duration: 0.8 }}
-      >
-        <m.div
-          className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary/10 border border-slate-500/30"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={
-            isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
-          }
-          transition={{ delay: 0.2, duration: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-        >
-          <Users className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium text-primary">
-            Our Amazing Team
-          </span>
-          <Star className="w-4 h-4 text-secondary" />
-        </m.div>
-
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold relative">
-          <span className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative">
-            Meet the Python Cameroon Team
-            {/* Glowing effect behind text */}
-            <span
-              className="absolute -inset-2 rounded-lg blur-xl -z-10"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(var(--primary-rgb), 0.3), rgba(147, 51, 234, 0.3), rgba(var(--primary-rgb), 0.3))",
-                opacity: 0.3,
-              }}
-            />
-          </span>
-        </h2>
-
-        {/* Animated divider */}
-        <m.div
-          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
-          animate={isInView ? { width: 120 } : { width: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        />
-
-        <m.p
-          className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          Dedicated innovators advancing Python development in Cameroon through
-          collaboration and expertise.
-        </m.p>
-      </m.div>
+      <SectionHeader
+        isInView={isInView}
+        badge={{
+          icon: <Users className="w-4 h-4 text-primary" />,
+          text: "Our Amazing Team",
+          iconRight: <Star className="w-4 h-4 text-secondary" />,
+        }}
+        title={<TitleGradient>Meet the Python Cameroon Team</TitleGradient>}
+        titleClassName="text-3xl md:text-4xl lg:text-5xl font-bold relative"
+        subtitle="Dedicated innovators advancing Python development in Cameroon through collaboration and expertise."
+        dividerWidth={120}
+      />
 
       {/* Team grid */}
       <m.div

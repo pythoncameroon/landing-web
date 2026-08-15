@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { LazyMotion, domAnimation, MotionConfig } from "framer-motion";
+// index.css (directives Tailwind + thème) doit précéder App et son App.css
+// (utilitaires custom) dans le graphe d'imports pour garder l'ordre de cascade
+import "./index.css";
 import App from "./App.tsx";
 import { ThemeProvider } from "@/providers/theme-provider.tsx";
 import { LanguageProvider } from "@/components/language.tsx";
@@ -12,7 +15,6 @@ import "@fontsource/space-mono/latin-400.css";
 import "@fontsource/space-mono/latin-700.css";
 import "@fontsource/space-mono/latin-ext-400.css";
 import "@fontsource/space-mono/latin-ext-700.css";
-import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

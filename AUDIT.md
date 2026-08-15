@@ -140,33 +140,29 @@ Dépendances : B1 avant toute retouche visuelle (le design actuel est partiellem
 
 ## Q — Qualité de code / architecture
 
-### Q1 — Duplication massive du motif de section (~150 lignes × 7) 🟡
+### Q1 — Duplication massive du motif de section (~150 lignes × 7) 🟡 — ✅ traité
 - **Constat :** « 2 blobs flous + particules aléatoires + titre dégradé animé + divider animé + glow » copié-collé dans About, Sponsors, HowItWorks, Services, Applications, Team, Newsletter, FAQ, Footer.
-- **Correction :** extraire `<SectionHeader title badge subtitle>`, `<GlowBackground>`, `<ParticleField count>` dans `src/components/section/`. Réduction ~50 % du code des containers ; permet d'appliquer P2/P4 en un seul endroit.
-- **⚠️ Faire APRÈS P1/P2** (ne pas refactorer des effets qui vont être supprimés).
+- **Correction appliquée :** `src/components/section/` créé avec `<GlowBackground blobs gridOpacity>` (halos statiques + motif grille optionnel) et `<SectionHeader isInView badge title subtitle dividerWidth>` + `<TitleGradient>` (dégradé de titre + halo). Appliqués dans About, Sponsors, HowItWorks, Services, Applications, Team, Newsletter, FAQ, Footer, Navbar et Statistics. ParticleField n'existe plus (particules supprimées en P2). Les micro-variations d'animation (délais/durées des dividers, opacités des halos de titre) ont été unifiées.
+- **Vérification :** `npm run build` OK ; contrôle visuel light/dark recommandé.
 
-### Q2 — Code mort : composants + ~9 Mo d'assets inutilisés 🟡
-- **Composants jamais importés :** `src/components/Features.tsx`, `src/components/HeroCards.tsx` (vérifié par grep). Probablement aussi `ui/accordion.tsx` (sauf si A2 le réutilise), `ui/avatar.tsx`, `ui/badge.tsx` — vérifier avant suppression.
-- **Assets inutilisés dans `src/assets/` :** machine-learning.png (3,4 Mo), data-science.png (2,5 Mo), cybersecurity.png (1,5 Mo), automation.png (876 K), game-development.png (648 K), + growth/reflecting/looking-ahead/cube-leg si non référencés après suppression des composants morts. Ils ne partent pas dans le bundle mais alourdissent repo/CI.
-- **CSS :** supprimer les 68 lignes de thème commenté dans `src/App.css:6–68` ; `.shadow` + keyframes dans `src/index.css` ne servent qu'à HeroCards (mort) → supprimer avec.
-- **Vérification :** `npm run build` + contrôle visuel complet.
+### Q2 — Code mort : composants + ~9 Mo d'assets inutilisés 🟡 — ✅ traité
+- **Correction appliquée :** supprimés — `Features.tsx`, `HeroCards.tsx`, `ui/avatar.tsx`, `ui/badge.tsx` (importés uniquement par le code mort ; `ui/accordion.tsx` conservé, utilisé par la FAQ depuis A2) ; assets `machine-learning/data-science/cybersecurity/automation/game-development/growth/reflecting/looking-ahead.png` (~9,5 Mo — `cube-leg.png` et `pilot.png` restent utilisés par Services/About) ; thème commenté de `App.css` (63 lignes) ; `.shadow` + keyframes `shadow-slide` (ne servaient qu'à HeroCards).
+- **Vérification :** `npm run build` OK.
 
-### Q3 — Dépendances mal rangées / inutilisées 🟡
-- `@vitejs/plugin-react-swc` est en `dependencies` → déplacer en `devDependencies`.
-- `@vitejs/plugin-react` (devDeps) fait doublon avec le SWC utilisé dans vite.config → supprimer.
-- `i18next-browser-languagedetector` : brancher (tâche B4) ou supprimer.
-- `@radix-ui/react-accordion`/`react-avatar` : selon issue de A2/Q2.
-- **Vérification :** `npm run build` + `npm run dev` OK après `npm install`.
+### Q3 — Dépendances mal rangées / inutilisées 🟡 — ✅ traité
+- **Correction appliquée :** `@vitejs/plugin-react-swc` déplacé en `devDependencies` ; `@vitejs/plugin-react` (doublon) supprimé ; `i18next-browser-languagedetector` supprimé (importé nulle part — à réinstaller lors du chantier B4, retiré aussi du `manualChunks` i18n) ; `@radix-ui/react-avatar` supprimé (ui/avatar mort, Q2) ; `@radix-ui/react-accordion` conservé (FAQ).
+- **Vérification :** `npm install` (36 paquets retirés) + `npm run lint` + `npm run build` OK.
 
-### Q4 — Incohérences de structure 🟢
-- `App.css` contient les directives Tailwind/thème et `index.css` les utilitaires custom → inverser (convention) ; `components.json` pointe `src/app.css` (mauvaise casse) → corriger vers le bon fichier (sinon le CLI shadcn échoue sur FS sensibles à la casse).
-- Données inline dans Sponsors/FAQ/Applications/Footer alors que Team utilise `src/data/team.ts` + `src/types/sections.ts` → centraliser toutes les données dans `src/data/` (prépare aussi B4/i18n).
-- `routeList` de la Navbar n'expose que About/Newsletter/FAQ → ajouter Team (et décider pour Sponsors/Applications/HowItWorks) ; le tracking `activeSection` suivra.
+### Q4 — Incohérences de structure 🟢 — ✅ traité
+- **CSS inversés :** `index.css` porte désormais les directives Tailwind + thème (convention shadcn), `App.css` les utilitaires custom ; `components.json` pointe `src/index.css` ; l'import de `index.css` remonté avant celui d'`App` dans `main.tsx` pour préserver l'ordre de cascade (Tailwind d'abord).
+- **Données centralisées :** `src/data/sponsors.ts`, `faq.ts`, `applications.ts` (icônes = composants lucide, plus de JSX dans les données), `footer.ts` ; types correspondants dans `src/types/sections.ts` (SponsorProps, FAQItemProps, ApplicationProps, FooterSectionProps).
+- **Navbar :** `Team` ajouté au `routeList` (About/Team/FAQ) ; Sponsors/Applications/HowItWorks laissés hors menu pour garder la navbar sobre — à rediscuter si besoin.
+- **Bonus lint :** dépendance `useMemo` manquante corrigée dans `language.tsx` (useCallback) ; `react-refresh/only-export-components` désactivée par override pour les fichiers shadcn vendorés et les paires provider+hook → `npm run lint` passe à 0 warning (prépare O1).
 
-### Q5 — Divers 🟢
-- `src/containers/Applications.tsx:21` : `const [, setActiveCard]` — état écrit jamais lu → supprimer.
-- `src/containers/Hero.tsx` : `motion.section` imbriqué dans `motion.section` pour le bloc titre → remplacer l'interne par `motion.div`.
-- Chiffres de `Statistics.tsx` (« 3.2K+ AI Models Deployed »…) : vraisemblablement fictifs → valider avec l'équipe ou remplacer par des stats réelles de la communauté.
+### Q5 — Divers 🟢 — ✅ traité (sauf validation équipe)
+- `Applications.tsx` : `const [, setActiveCard]` supprimé — **corrigé**.
+- `Hero.tsx` : `m.section` interne du bloc titre remplacé par `m.div` — **corrigé**.
+- ⚠️ **Reste à valider avec l'équipe :** chiffres de `Statistics.tsx` (« 3.2K+ AI Models Deployed »…) vraisemblablement fictifs → remplacer par des stats réelles de la communauté (décision produit, pas traitée ici).
 
 ---
 

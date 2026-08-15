@@ -221,7 +221,7 @@ export const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={controls}
       >
-        <m.section
+        <m.div
           className="text-5xl md:text-6xl font-extrabold leading-tight"
           variants={titleVariants}
           initial="hidden"
@@ -251,7 +251,7 @@ export const Hero = () => {
               </m.span>
             </span>
           </h1>
-        </m.section>
+        </m.div>
 
         <m.p
           className="text-sm text-muted-foreground md:w-10/12 mx-auto lg:mx-0 relative"

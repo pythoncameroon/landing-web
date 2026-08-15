@@ -18,6 +18,7 @@ import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LogoIcon } from "@/components/Icons";
 import { PyConBanner } from "@/components/PyConBanner";
+import { GlowBackground } from "@/components/section/GlowBackground";
 import { m, AnimatePresence } from "framer-motion";
 
 interface RouteProps {
@@ -29,6 +30,10 @@ const routeList: RouteProps[] = [
   {
     href: "#about",
     label: "About",
+  },
+  {
+    href: "#team",
+    label: "Team",
   },
   {
     href: "#faq",
@@ -89,17 +94,13 @@ export const Navbar = () => {
     >
       <PyConBanner />
 
-      {/* Background glow effect */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-primary opacity-5"
-          style={{ filter: "blur(100px)" }}
-        />
-        <div
-          className="absolute -bottom-40 -left-20 w-80 h-80 rounded-full bg-primary opacity-5"
-          style={{ filter: "blur(120px)" }}
-        />
-      </div>
+      <GlowBackground
+        className="overflow-hidden"
+        blobs={[
+          { className: "-top-20 -right-20 w-60 h-60 bg-primary", blur: 100, opacity: 0.05 },
+          { className: "-bottom-40 -left-20 w-80 h-80 bg-primary", blur: 120, opacity: 0.05 },
+        ]}
+      />
 
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-16 px-4 w-screen flex justify-between items-center">

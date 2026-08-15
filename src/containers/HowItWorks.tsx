@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "@/components/Icons";
 import { m, useInView, AnimatePresence } from "framer-motion";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -150,16 +152,14 @@ export const HowItWorks = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/10"
-          style={{ filter: "blur(80px)" }}
-        />
-        <div
-          className="absolute bottom-40 -left-20 w-80 h-80 rounded-full bg-secondary/10"
-          style={{ filter: "blur(100px)" }}
-        />
+      <GlowBackground
+        blobs={[
+          { className: "top-20 right-20 w-64 h-64 bg-primary/10", blur: 80 },
+          { className: "bottom-40 -left-20 w-80 h-80 bg-secondary/10", blur: 100 },
+        ]}
+      />
 
+      <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 opacity-[0.03]">
           {Array.from({ length: 7 }).map((_, i) => (
             <m.div
@@ -183,50 +183,17 @@ export const HowItWorks = () => {
         </div>
       </div>
 
-      <m.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15 }}
-        className="relative"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold">
-          How It{" "}
-          <span
-            className="relative inline-block"
-          >
-            <span
-              className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text"
-              style={{ backgroundSize: "200% auto" }}
-            >
-              Works
-            </span>
-            <span
-              className="absolute -inset-1 rounded-lg blur-xl z-[-1]"
-              style={{
-                opacity: 0.2,
-                background: "radial-gradient(circle, rgba(var(--primary-rgb), 0.6) 0%, transparent 60%)"
-              }}
-            />
-          </span>{" "}
-          Step-by-Step Guide
-        </h2>
-
-        <m.div
-          className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"
-          initial={{ width: 0 }}
-          animate={isInView ? { width: 80 } : { width: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        />
-      </m.div>
-
-      <m.p
-        className="md:w-3/4 mx-auto mt-4 mb-20 text-lg text-muted-foreground"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ delay: 0.4, duration: 0.6 }}
-      >
-        Explore the power of Python through accessibility, community, scalability, and gamification.
-      </m.p>
+      <SectionHeader
+        isInView={isInView}
+        title={
+          <>
+            How It <TitleGradient>Works</TitleGradient> Step-by-Step Guide
+          </>
+        }
+        subtitle="Explore the power of Python through accessibility, community, scalability, and gamification."
+        subtitleClassName="md:w-3/4 text-lg text-muted-foreground mt-4 mx-auto"
+        dividerWidth={80}
+      />
 
       <m.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"

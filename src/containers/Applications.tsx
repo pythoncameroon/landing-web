@@ -1,108 +1,15 @@
 import { useState, useRef } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code2, Database, Brain, Zap, Shield, Gamepad2, Sparkles, ArrowRight } from "lucide-react";
-// Images servies localement en WebP 800px au lieu d'Unsplash ~2000px (AUDIT.md P3)
-import webDevelopmentImg from "@/assets/applications/web-development.webp";
-import dataScienceImg from "@/assets/applications/data-science.webp";
-import machineLearningImg from "@/assets/applications/machine-learning.webp";
-import automationImg from "@/assets/applications/automation.webp";
-import cybersecurityImg from "@/assets/applications/cybersecurity.webp";
-import gameDevelopmentImg from "@/assets/applications/game-development.webp";
-
-interface ApplicationProps {
-  image: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  techStack: string[];
-  color: {
-    primary: string;
-    secondary: string;
-    accent: string;
-  };
-}
+import { Sparkles, ArrowRight } from "lucide-react";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
+import { applicationsData } from "@/data/applications";
 
 export const Applications = () => {
   const [hovered, setHovered] = useState<number | null>(null);
-  const [, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
-
-  const applications: ApplicationProps[] = [
-    {
-      image: webDevelopmentImg,
-      title: "Web Development",
-      description: "Python is widely used for building websites with frameworks like Django and Flask. Create powerful, scalable web applications with clean, maintainable code.",
-      icon: <Code2 className="w-6 h-6" />,
-      techStack: ["Django", "Flask", "FastAPI", "SQLAlchemy"],
-      color: {
-        primary: "from-blue-500 to-cyan-500",
-        secondary: "bg-blue-500/10",
-        accent: "border-blue-500/30"
-      }
-    },
-    {
-      image: dataScienceImg,
-      title: "Data Science",
-      description: "Python is the go-to language for data analysis, visualization, and manipulation using Pandas and NumPy. Transform raw data into actionable insights.",
-      icon: <Database className="w-6 h-6" />,
-      techStack: ["Pandas", "NumPy", "Matplotlib", "Jupyter"],
-      color: {
-        primary: "from-green-500 to-emerald-500",
-        secondary: "bg-green-500/10",
-        accent: "border-green-500/30"
-      }
-    },
-    {
-      image: machineLearningImg,
-      title: "Machine Learning & AI",
-      description: "Python is essential in AI with libraries like TensorFlow and scikit-learn. Build intelligent systems that learn and adapt.",
-      icon: <Brain className="w-6 h-6" />,
-      techStack: ["TensorFlow", "PyTorch", "Scikit-learn", "OpenCV"],
-      color: {
-        primary: "from-secondary to-pink-500",
-        secondary: "bg-secondary/10",
-        accent: "border-secondary/30"
-      }
-    },
-    {
-      image: automationImg,
-      title: "Automation & Scripting",
-      description: "Automate repetitive tasks using Python scripts, Selenium, and BeautifulSoup. Increase productivity and eliminate manual work.",
-      icon: <Zap className="w-6 h-6" />,
-      techStack: ["Selenium", "BeautifulSoup", "Requests", "Celery"],
-      color: {
-        primary: "from-yellow-500 to-orange-500",
-        secondary: "bg-yellow-500/10",
-        accent: "border-yellow-500/30"
-      }
-    },
-    {
-      image: cybersecurityImg,
-      title: "Cybersecurity",
-      description: "Python is used in ethical hacking, penetration testing, and security analysis. Protect digital assets with powerful security tools.",
-      icon: <Shield className="w-6 h-6" />,
-      techStack: ["Scapy", "Nmap", "Metasploit", "Wireshark"],
-      color: {
-        primary: "from-red-500 to-rose-500",
-        secondary: "bg-red-500/10",
-        accent: "border-red-500/30"
-      }
-    },
-    {
-      image: gameDevelopmentImg,
-      title: "Game Development",
-      description: "Python is used to create games with frameworks like Pygame and Panda3D. Build engaging interactive experiences and simulations.",
-      icon: <Gamepad2 className="w-6 h-6" />,
-      techStack: ["Pygame", "Panda3D", "Arcade", "Kivy"],
-      color: {
-        primary: "from-indigo-500 to-violet-500",
-        secondary: "bg-indigo-500/10",
-        accent: "border-indigo-500/30"
-      }
-    },
-  ];
 
   return (
     <m.section
@@ -113,64 +20,24 @@ export const Applications = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-20 left-1/4 w-80 h-80 rounded-full bg-primary/8"
-          style={{ filter: "blur(120px)" }}
-        />
+      <GlowBackground
+        gridOpacity={0.02}
+        blobs={[
+          { className: "top-20 left-1/4 w-80 h-80 bg-primary/10", blur: 120 },
+          { className: "bottom-20 right-1/3 w-96 h-96 bg-secondary", blur: 100, opacity: 0.15 },
+        ]}
+      />
 
-        <div
-          className="absolute bottom-20 right-1/3 w-96 h-96 rounded-full bg-secondary"
-          style={{ filter: "blur(100px)", opacity: 0.15 }}
-        />
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiMyMDIwMjAiIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMzBjMCAxNi41Ny0xMy40MyAzMC0zMCAzMFMwIDQ2LjU3IDAgMzAgMTMuNDMgMCAzMCAwczMwIDEzLjQzIDMwIDMweiIgc3Ryb2tlPSIjZmZmZmZmMDMiIHN0cm9rZS13aWR0aD0iLjUiLz48L2c+PC9zdmc+')] opacity-[0.02]" />
-      </div>
-
-      {/* Section header */}
-      <m.div
-        className="relative mb-16 text-center"
-        initial={{ opacity: 0, y: -30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2
-          className="text-3xl md:text-4xl font-bold relative"
-        >
-          Explore
-          <span
-            className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text ml-2"
-          >
-            Python's Applications
-          </span>
-
-          {/* Glowing effect behind text */}
-          <span
-            className="absolute -inset-2 rounded-lg blur-xl -z-10"
-            style={{
-              background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.2), rgba(147, 51, 234, 0.2), rgba(var(--primary-rgb), 0.2))",
-              opacity: 0.2,
-            }}
-          />
-        </h2>
-
-        <m.div
-          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
-          animate={isInView ? { width: 150 } : { width: 0 }}
-          transition={{ delay: 0.4, duration: 1 }}
-        />
-
-        <m.p
-          className="text-lg text-muted-foreground pt-4 pb-8 max-w-2xl mx-auto relative"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          Python is used in various fields, from web development to artificial intelligence.
-        </m.p>
-      </m.div>
+      <SectionHeader
+        isInView={isInView}
+        title={
+          <>
+            Explore <TitleGradient>Python's Applications</TitleGradient>
+          </>
+        }
+        subtitle="Python is used in various fields, from web development to artificial intelligence."
+        dividerWidth={150}
+      />
 
       {/* Applications grid */}
       <m.div 
@@ -179,7 +46,7 @@ export const Applications = () => {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
-        {applications.map(({ image, title, description, icon, techStack, color }, index) => (
+        {applicationsData.map(({ image, title, description, icon: Icon, techStack, color }, index) => (
           <m.div
             key={title}
             className="relative perspective-1000"
@@ -194,14 +61,8 @@ export const Applications = () => {
               type: "spring",
               stiffness: 100
             }}
-            onMouseEnter={() => {
-              setHovered(index);
-              setActiveCard(index);
-            }}
-            onMouseLeave={() => {
-              setHovered(null);
-              setActiveCard(null);
-            }}
+            onMouseEnter={() => setHovered(index)}
+            onMouseLeave={() => setHovered(null)}
           >
             {/* Halos hors de la Card : dedans, son overflow-hidden + son contexte
                 d'empilement les faisaient flotter AU-DESSUS du fond de carte et
@@ -275,7 +136,7 @@ export const Applications = () => {
                       rotate: { duration: 0.5 }
                     }}
                   >
-                    {icon}
+                    <Icon className="w-6 h-6" />
                   </m.div>
                 </m.div>
 

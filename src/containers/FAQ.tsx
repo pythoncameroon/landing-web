@@ -7,45 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-interface FAQProps {
-  question: string;
-  answer: string;
-  value: string;
-}
-
-const FAQList: FAQProps[] = [
-  {
-    question: "What is Python Cameroon?",
-    answer:
-      "Python Cameroon is a vibrant community dedicated to fostering Python development, networking, and collaboration among developers in Cameroon. We provide mentorship, resources, and events to support Python enthusiasts at all levels.",
-    value: "item-1",
-  },
-  {
-    question: "How can I join the Python Cameroon community?",
-    answer:
-      "You can join Python Cameroon by connecting with us on our social media channels, participating in our meetups, and engaging in discussions on our online platforms such as Discord and GitHub.",
-    value: "item-2",
-  },
-  {
-    question: "Does Python Cameroon offer mentorship programs?",
-    answer:
-      "Yes! We have mentorship programs where experienced Python developers guide beginners through learning Python, contributing to open-source projects, and career growth.",
-    value: "item-3",
-  },
-  {
-    question: "Are there Python meetups or events in Cameroon?",
-    answer:
-      "Absolutely! We organize regular meetups, workshops, and hackathons where developers can network, collaborate on projects, and improve their Python skills.",
-    value: "item-4",
-  },
-  {
-    question: "How can I contribute to Python Cameroon?",
-    answer:
-      "You can contribute by sharing knowledge, mentoring beginners, participating in projects, and helping organize events. Contributions to our GitHub repositories and volunteering at community events are also highly appreciated!",
-    value: "item-5",
-  },
-];
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { SectionHeader, TitleGradient } from "@/components/section/SectionHeader";
+import { faqData } from "@/data/faq";
+import type { FAQItemProps } from "@/types/sections";
 
 export const FAQ = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -61,69 +26,28 @@ export const FAQ = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-20 left-1/4 w-96 h-96 rounded-full bg-primary/5"
-          style={{ filter: "blur(100px)", opacity: 0.45 }}
-        />
+      <GlowBackground
+        blobs={[
+          { className: "top-20 left-1/4 w-96 h-96 bg-primary/5", blur: 100, opacity: 0.45 },
+          { className: "bottom-10 right-1/3 w-80 h-80 bg-secondary", blur: 120, opacity: 0.55 },
+        ]}
+      />
 
-        <div
-          className="absolute bottom-10 right-1/3 w-80 h-80 rounded-full bg-secondary"
-          style={{ filter: "blur(120px)", opacity: 0.55 }}
-        />
-      </div>
-
-      {/* Section header */}
-      <m.div 
-        className="relative mb-16 text-center"
-        initial={{ opacity: 0, y: -30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-        transition={{ duration: 0.8 }}
-      >
-        <m.div
-          className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-        >
-          <HelpCircle className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium text-primary">Got Questions?</span>
-          <Sparkles className="w-4 h-4 text-secondary" />
-        </m.div>
-
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold relative">
-          Frequently Asked{" "}
-          <span className="bg-gradient-to-r from-primary via-secondary to-primary text-transparent bg-clip-text relative">
-            Questions
-            {/* Glowing effect behind text */}
-            <span
-              className="absolute -inset-2 rounded-lg blur-xl -z-10"
-              style={{
-                background: "linear-gradient(to right, rgba(var(--primary-rgb), 0.3), rgba(147, 51, 234, 0.3), rgba(var(--primary-rgb), 0.3))",
-                opacity: 0.3,
-              }}
-            />
-          </span>
-        </h2>
-        
-        {/* Animated divider */}
-        <m.div 
-          className="h-1 w-0 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mt-6"
-          animate={isInView ? { width: 100 } : { width: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        />
-
-        <m.p
-          className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          Everything you need to know about joining and contributing to our community
-        </m.p>
-      </m.div>
+      <SectionHeader
+        isInView={isInView}
+        badge={{
+          icon: <HelpCircle className="w-4 h-4 text-primary" />,
+          text: "Got Questions?",
+          iconRight: <Sparkles className="w-4 h-4 text-secondary" />,
+        }}
+        title={
+          <>
+            Frequently Asked <TitleGradient>Questions</TitleGradient>
+          </>
+        }
+        titleClassName="text-3xl md:text-4xl lg:text-5xl font-bold relative"
+        subtitle="Everything you need to know about joining and contributing to our community"
+      />
 
       {/* FAQ Accordion — Radix via ui/accordion : aria-expanded/aria-controls et
           navigation clavier fournis, au lieu du bouton fait main (AUDIT.md A2) */}
@@ -133,7 +57,7 @@ export const FAQ = () => {
         transition={{ delay: 0.7, duration: 0.8 }}
       >
         <Accordion type="multiple" className="max-w-4xl mx-auto space-y-4">
-          {FAQList.map(({ question, answer, value }: FAQProps, index) => {
+          {faqData.map(({ question, answer, value }: FAQItemProps, index) => {
             const isHovered = hoveredItem === value;
 
             return (
