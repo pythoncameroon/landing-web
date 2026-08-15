@@ -3,62 +3,10 @@ import { m, useAnimation, useMotionValue, useTransform } from "framer-motion";
 import { cameroonFlag } from "@/assets";
 import HeroNetwork from "@/components/HeroNetwork";
 
-// Define interfaces for component props
-interface AnimatedCharacterProps {
-  character: string;
-  delay?: number;
-}
-
-interface SplitTextAnimationProps {
-  text: string;
-  className?: string;
-  delay?: number;
-}
-
 interface EnhancedImageProps {
   src: string;
   alt: string;
 }
-
-// Animated character component for text effects
-const AnimatedCharacter = ({
-  character,
-  delay = 0,
-}: AnimatedCharacterProps) => {
-  return (
-    <m.span
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.5,
-        delay: delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="inline-block"
-    >
-      {character}
-    </m.span>
-  );
-};
-
-// Split text into animated characters
-const SplitTextAnimation = ({
-  text,
-  className = "",
-  delay = 0,
-}: SplitTextAnimationProps) => {
-  return (
-    <span className={className}>
-      {text.split("").map((char: string, index: number) => (
-        <AnimatedCharacter
-          key={index}
-          character={char}
-          delay={delay + index * 0.03}
-        />
-      ))}
-    </span>
-  );
-};
 
 // Enhanced image component with effects
 const EnhancedImage = ({ src, alt }: EnhancedImageProps) => {
@@ -160,30 +108,6 @@ export const Hero = () => {
     };
   }, [controls]);
 
-  // Text animation sequence
-  const titleVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const wordVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 12,
-      },
-    },
-  };
-
   return (
     <m.section
       className="container relative grid lg:grid-cols-2 place-items-center py-24 md:py-16 gap-10 hero-section overflow-hidden"
@@ -218,40 +142,43 @@ export const Hero = () => {
       {/* Text content with animations */}
       <m.div
         className="text-center lg:text-start space-y-6 z-10"
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0 }}
         animate={controls}
       >
-        <m.div
-          className="text-5xl md:text-6xl font-extrabold leading-tight"
-          variants={titleVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Un seul h1 pour la page — les deux lignes restent visuellement séparées (AUDIT.md A5) */}
+        <div className="text-5xl md:text-6xl font-extrabold leading-tight">
+          {/* Un seul h1 pour la page — deux lignes en span.block (AUDIT.md A5).
+              Entrée par révélation de ligne : chaque ligne glisse depuis le bas
+              derrière un masque overflow-hidden, sans effet lettre par lettre. */}
           <h1 className="py-1">
             <span className="block overflow-hidden">
               <m.span
-                className="inline-block bg-gradient-to-r from-secondary to-[#B8860B] dark:to-[#FFE873] text-transparent bg-clip-text relative"
-                variants={wordVariants}
+                className="block"
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
               >
-                <SplitTextAnimation text="Python" className="" delay={0.4} />
-                <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#FFD43B]/10" />
-              </m.span>{" "}
-              <m.span className="inline-block" variants={wordVariants}>
+                <span className="inline-block bg-gradient-to-r from-secondary to-[#B8860B] dark:to-[#FFE873] text-transparent bg-clip-text relative">
+                  Python
+                  <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#FFD43B]/10" />
+                </span>{" "}
                 is
               </m.span>
             </span>
             <span className="block overflow-hidden">
               <m.span
-                className="inline-block bg-gradient-to-r from-primary via-primary to-[#4B8BBE] text-transparent bg-clip-text relative"
-                variants={wordVariants}
+                className="block"
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
               >
-                <SplitTextAnimation text="Fun!" className="" delay={0.8} />
-                <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#306998]/10" />
+                <span className="inline-block bg-gradient-to-r from-primary via-primary to-[#4B8BBE] text-transparent bg-clip-text relative">
+                  Fun!
+                  <span className="absolute -inset-1 rounded-lg opacity-30 bg-[#306998]/10" />
+                </span>
               </m.span>
             </span>
           </h1>
-        </m.div>
+        </div>
 
         <m.p
           className="text-sm text-muted-foreground md:w-10/12 mx-auto lg:mx-0 relative"
