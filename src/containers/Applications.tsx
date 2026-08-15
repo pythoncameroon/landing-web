@@ -230,7 +230,7 @@ export const Applications = () => {
             Ready to start your Python journey?
           </m.h3>
           <m.a
-            href="https://github.com/pythoncameroon"
+            href="https://chat.whatsapp.com/Ckc80ophGEH0NJFmZAzDMr"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-medium relative overflow-hidden group"

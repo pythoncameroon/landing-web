@@ -142,8 +142,7 @@ export const FAQ = () => {
           <MessageCircle className="w-5 h-5 text-primary" />
           <span className="text-lg font-medium">Still have questions?</span>
           <m.a
-            rel="noreferrer noopener"
-            href="https://github.com/PythonCameroon"
+            href="mailto:organizers@pythoncameroon.org"
             className="text-primary font-semibold hover:underline transition-all duration-300"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
