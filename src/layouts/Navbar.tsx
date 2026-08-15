@@ -18,6 +18,7 @@ import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LogoIcon } from "@/components/Icons";
 import { LanguageSwitcher } from "@/components/language"; // Import Language Switcher
+import { PyConBanner } from "@/components/PyConBanner";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface RouteProps {
@@ -122,6 +123,8 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
     >
+      <PyConBanner />
+
       {/* Background glow effect */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
