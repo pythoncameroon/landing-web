@@ -1,16 +1,11 @@
-import { logoLight, logoDark } from "@/assets";
+import { logo } from "@/assets";
 
 export const LogoIcon = () => {
   return (
-    <>
-      <div className="hidden dark:block">
-        <img src={logoLight} alt="Python Cameroon" width={130} height={30} />
-      </div>
-
-      <div className="block dark:hidden">
-        <img src={logoDark} alt="Python Cameroon" width={130} height={30} />
-      </div>
-    </>
+    <span className="flex items-center gap-2">
+      <img src={logo} alt="Python Cameroon" width={40} height={40} />
+      <span>Python Cameroon</span>
+    </span>
   );
 };
 
