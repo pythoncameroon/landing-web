@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo, ReactNode, useEffect } from "react";
+import { createContext, useCallback, useContext, useState, useMemo, ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
@@ -18,15 +18,15 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     i18n.changeLanguage(language);
   }, [language, i18n]);
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     const newLang = language === "en" ? "fr" : "en";
     i18n.changeLanguage(newLang).then(() => {
       setLanguage(newLang);
       localStorage.setItem("selectedLanguage", newLang);
     });
-  };
+  }, [language, i18n]);
 
-  const contextValue = useMemo(() => ({ language, toggleLanguage }), [language]);
+  const contextValue = useMemo(() => ({ language, toggleLanguage }), [language, toggleLanguage]);
 
   return (
     <LanguageContext.Provider value={contextValue}>

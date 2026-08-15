@@ -17,9 +17,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LogoIcon } from "@/components/Icons";
-import { LanguageSwitcher } from "@/components/language"; // Import Language Switcher
 import { PyConBanner } from "@/components/PyConBanner";
-import { motion, AnimatePresence } from "framer-motion";
+import { GlowBackground } from "@/components/section/GlowBackground";
+import { m, AnimatePresence } from "framer-motion";
 
 interface RouteProps {
   href: string;
@@ -32,46 +32,14 @@ const routeList: RouteProps[] = [
     label: "About",
   },
   {
-    href: "#newsletter",
-    label: "Newsletter",
+    href: "#team",
+    label: "Team",
   },
   {
     href: "#faq",
     label: "FAQ",
   },
 ];
-
-// Particle effect for the logo
-const ParticleEffect = () => {
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute h-1 w-1 rounded-full bg-primary"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-            x: [0, Math.random() * 40 - 20],
-            y: [0, Math.random() * 40 - 20],
-          }}
-          transition={{
-            duration: 2,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatDelay: Math.random() * 2,
-            delay: Math.random() * 2,
-          }}
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -81,37 +49,38 @@ export const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
-
-      // Update active section based on scroll
-      const sections = routeList
-        .map((route) => {
-          const id = route.href.substring(1);
-          const element = document.getElementById(id);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            const isInView =
-              rect.top <= window.innerHeight / 2 &&
-              rect.bottom >= window.innerHeight / 2;
-            return { id, isInView };
-          }
-          return null;
-        })
-        .filter(Boolean);
-
-      const currentSection = sections.find((section) => section?.isInView)?.id;
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Section active = celle qui traverse la ligne médiane du viewport,
+    // sans getBoundingClientRect à chaque event scroll (AUDIT.md P5)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    routeList.forEach((route) => {
+      const element = document.getElementById(route.href.substring(1));
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.header
+    <m.header
       className={`fixed border-b-[1px] top-0 z-40 w-full transition-all duration-300
         ${
           scrolled
@@ -125,46 +94,41 @@ export const Navbar = () => {
     >
       <PyConBanner />
 
-      {/* Background glow effect */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-primary opacity-5"
-          style={{ filter: "blur(100px)" }}
-        />
-        <div
-          className="absolute -bottom-40 -left-20 w-80 h-80 rounded-full bg-primary opacity-5"
-          style={{ filter: "blur(120px)" }}
-        />
-      </div>
+      <GlowBackground
+        className="overflow-hidden"
+        blobs={[
+          { className: "-top-20 -right-20 w-60 h-60 bg-primary", blur: 100, opacity: 0.05 },
+          { className: "-bottom-40 -left-20 w-80 h-80 bg-primary", blur: 120, opacity: 0.05 },
+        ]}
+      />
 
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-16 px-4 w-screen flex justify-between items-center">
           <NavigationMenuItem className="font-bold flex">
-            <motion.a
+            <m.a
               rel="noreferrer noopener"
               href="/"
               className="ml-2 font-bold text-xl flex items-center relative"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <motion.div
+              <m.div
                 whileHover={{ rotate: 10 }}
                 transition={{ duration: 0.2 }}
                 className="relative"
               >
                 <LogoIcon />
 
-                <ParticleEffect />
                 {/* Glow effect */}
-                <motion.div
+                <m.div
                   className="absolute inset-0 rounded-full bg-primary opacity-0"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 0.2, scale: 1.2 }}
                   transition={{ duration: 0.3 }}
                   style={{ filter: "blur(10px)" }}
                 />
-              </motion.div>
-            </motion.a>
+              </m.div>
+            </m.a>
           </NavigationMenuItem>
           {/* Mobile navigation */}
           <div className="flex md:hidden gap-2 items-center">
@@ -174,30 +138,16 @@ export const Navbar = () => {
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2 relative">
-                <motion.div
+                <span className="sr-only">Open menu</span>
+                <m.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   className="relative"
                 >
-                  <Menu
-                    className="flex md:hidden h-5 w-5"
-                    onClick={() => setIsOpen(true)}
-                  >
-                    <span className="sr-only">Menu Icon</span>
-                  </Menu>
+                  <Menu aria-hidden="true" className="flex md:hidden h-5 w-5" />
                   {/* Notification dot */}
-                  <motion.div
-                    className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-primary"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 2,
-                    }}
-                  />
-                </motion.div>
+                  <div className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-primary opacity-70" />
+                </m.div>
               </SheetTrigger>
 
               <SheetContent
@@ -213,7 +163,7 @@ export const Navbar = () => {
                   <AnimatePresence>
                     <div className="w-full flex flex-col items-center gap-4">
                       {routeList.map(({ href, label }: RouteProps, index) => (
-                        <motion.div
+                        <m.div
                           key={label}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -230,13 +180,13 @@ export const Navbar = () => {
                             <span className="relative z-10">{label}</span>
                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300" />
                           </a>
-                        </motion.div>
+                        </m.div>
                       ))}
                     </div>
                   </AnimatePresence>
 
                   <div className="mt-6 w-full flex flex-col items-center gap-4">
-                    <motion.a
+                    <m.a
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       rel="noreferrer noopener"
@@ -253,15 +203,7 @@ export const Navbar = () => {
                           Github
                         </span>
                       </div>
-                    </motion.a>
-
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative p-1"
-                    >
-                      <LanguageSwitcher />
-                    </motion.div>
+                    </m.a>
                   </div>
                 </nav>
               </SheetContent>
@@ -275,7 +217,7 @@ export const Navbar = () => {
                 <div key={i} className="group">
                   {" "}
                   {/* plain div, no motion */}
-                  <motion.a
+                  <m.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     rel="noreferrer noopener"
@@ -299,13 +241,13 @@ export const Navbar = () => {
                     {isActive && (
                       <span className="absolute inset-0 bg-primary/5 rounded-md -z-10" />
                     )}
-                  </motion.a>
+                  </m.a>
                 </div>
               );
             })}
           </nav>
           <div className="hidden md:flex gap-3 items-center">
-            <motion.a
+            <m.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               rel="noreferrer noopener"
@@ -322,26 +264,18 @@ export const Navbar = () => {
                   Github
                 </span>
               </div>
-            </motion.a>
+            </m.a>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative"
-            >
-              <LanguageSwitcher />
-            </motion.div>
-
-            <motion.div
+            <m.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative"
             >
               <ModeToggle />
-            </motion.div>
+            </m.div>
           </div>
         </NavigationMenuList>
       </NavigationMenu>
-    </motion.header>
+    </m.header>
   );
 };

@@ -26,7 +26,7 @@ const TimeUnit = ({ value, label }: { value: number; label: string }) => (
     <span className="text-sm sm:text-base font-bold tabular-nums">
       {String(value).padStart(2, "0")}
     </span>
-    <span className="text-[9px] sm:text-[10px] uppercase tracking-wide opacity-80">
+    <span className="text-[11px] sm:text-xs uppercase tracking-wide opacity-80">
       {label}
     </span>
   </div>

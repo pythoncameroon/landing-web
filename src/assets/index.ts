@@ -1,6 +1,6 @@
-// logo
-import logoLight from "./logo/light.svg";
-import logoDark from "./logo/dark.svg";
+// logo (logo.png = source pleine résolution, sert à régénérer les favicons ;
+// logo-nav.webp = version 80px chargée par la navbar)
+import logo from "./logo/logo-nav.webp";
 
 // Images
 import cameroonFlag from "./images/flag-cameroon.webp";
@@ -14,9 +14,8 @@ import abuambou from "./organizers/abuambouEvodia.webp";
 import essi from "./organizers/essi.webp";
  
  
-export { 
-  logoLight, 
-  logoDark, 
+export {
+  logo,
   cameroonFlag, 
   steve, 
   edmond, 

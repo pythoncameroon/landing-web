@@ -1,6 +1,7 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Python Cameroon",
+  "short_name": "Python Cameroon",
+  "description": "The Python Cameroon Community - a vibrant and supportive space for individuals passionate about Python programming.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +16,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#04906D",
   "background_color": "#ffffff",
   "display": "standalone"
 }

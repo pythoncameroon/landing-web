@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 
 const COLORS = ["#fcd116", "#ce1126", "#009a44", "#ffffff"];
-const NODE_COUNT = 70;
+const NODE_COUNT_DESKTOP = 55;
+const NODE_COUNT_MOBILE = 28;
 const MAX_DIST = 130;
 
 interface Node {
@@ -27,11 +28,19 @@ export default function HeroNetwork() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animId: number;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let animId = 0;
+    let running = false;
+    let inView = false;
     let nodes: Node[] = [];
 
     const initNodes = () => {
-      nodes = Array.from({ length: NODE_COUNT }, () => ({
+      const count =
+        canvas.offsetWidth < 768 ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP;
+      nodes = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.4,
@@ -42,13 +51,7 @@ export default function HeroNetwork() {
       }));
     };
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      initNodes();
-    };
-
-    const draw = () => {
+    const drawFrame = () => {
       const { width: W, height: H } = canvas;
       ctx.clearRect(0, 0, W, H);
 
@@ -82,23 +85,54 @@ export default function HeroNetwork() {
         ctx.fillStyle = hexAlpha(n.color, n.opacity);
         ctx.fill();
       }
-
-      animId = requestAnimationFrame(draw);
     };
 
-    const ro = new ResizeObserver(() => {
-      cancelAnimationFrame(animId);
-      resize();
-      draw();
-    });
+    const loop = () => {
+      drawFrame();
+      if (running) animId = requestAnimationFrame(loop);
+    };
 
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(animId);
+    };
+
+    // L'animation ne tourne que si le canvas est visible ET l'onglet actif (AUDIT.md P2)
+    const sync = () => {
+      const shouldRun =
+        inView && document.visibilityState === "visible" && !reducedMotion;
+      if (shouldRun && !running) {
+        running = true;
+        animId = requestAnimationFrame(loop);
+      } else if (!shouldRun) {
+        stop();
+      }
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      initNodes();
+      if (!running) drawFrame();
+    };
+
+    const io = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    });
+    io.observe(canvas);
+
+    document.addEventListener("visibilitychange", sync);
+
+    const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     resize();
-    draw();
 
     return () => {
-      cancelAnimationFrame(animId);
+      stop();
+      io.disconnect();
       ro.disconnect();
+      document.removeEventListener("visibilitychange", sync);
     };
   }, []);
 

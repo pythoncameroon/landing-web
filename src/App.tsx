@@ -4,7 +4,6 @@ import {Footer} from "@/layouts/Footer";
 import {Hero} from "@/containers/Hero";
 import {HowItWorks} from "@/containers/HowItWorks";
 import {Navbar} from "@/layouts/Navbar";
-import {Newsletter} from "@/containers/Newsletter";
 import {ScrollToTop} from "@/components/ScrollToTop";
 import {Services} from "@/containers/Services";
 import {Sponsors} from "@/containers/Sponsors";
@@ -24,7 +23,7 @@ function App() {
       <Services/>
       <Applications/>
       <Team/>
-      <Newsletter/>
+      {/* Newsletter masquée : pas de backend réel derrière le formulaire, voir AUDIT.md B3 */}
       <FAQ/>
       <Footer/>
       <ScrollToTop/>

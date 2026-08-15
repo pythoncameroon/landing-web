@@ -15,4 +15,18 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      // Composants shadcn vendorés (exportent aussi leurs variants cva) et
+      // paires provider+hook : la règle ne concerne que la granularité du HMR.
+      files: [
+        'src/components/ui/**/*.tsx',
+        'src/providers/theme-provider.tsx',
+        'src/components/language.tsx',
+      ],
+      rules: {
+        'react-refresh/only-export-components': 'off',
+      },
+    },
+  ],
 }

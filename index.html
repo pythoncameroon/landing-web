@@ -3,39 +3,62 @@
 
 <head>
     <meta charset="UTF-8" />
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="./src/assets/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./src/assets/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="./src/assets/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="./src/assets/favicon/site.webmanifest" />
+    <!-- Favicons (servis depuis public/, chemins stables à la racine) -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <!-- favicon.svg retiré : 428 kB de PNG base64 déguisé en SVG (AUDIT.md P3) -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- href="/vite.svg" -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#04906D" />
 
     <!-- Primary Meta Tags -->
     <title>Python Cameroon</title>
     <meta name="title" content="Python Cameroon" />
     <meta name="description" content="Welcome to the Python Cameroon Community - a vibrant and supportive space for individuals passionate about Python programming." />
+    <link rel="canonical" href="https://pythoncameroon.org/" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://github.com/pythoncameroon/landing-web" />
+    <meta property="og:url" content="https://pythoncameroon.org/" />
+    <meta property="og:site_name" content="Python Cameroon" />
     <meta property="og:title" content="Python Cameroon" />
     <meta property="og:description" content="Welcome to the Python Cameroon Community - a vibrant and supportive space for individuals passionate about Python programming." />
-    <meta property="og:image" content="./src/assets/opengraph/og-image.png" />
+    <!-- URL absolue requise par les crawlers (FB/LinkedIn/X) -->
+    <meta property="og:image" content="https://pythoncameroon.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Python Cameroon community logo" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-
-    <meta name="twitter:url" content="https://github.com/pythoncameroon/landing-web" />
+    <meta name="twitter:url" content="https://pythoncameroon.org/" />
     <meta name="twitter:title" content="Python Cameroon" />
     <meta name="twitter:description" content="Welcome to the Python Cameroon Community - a vibrant and supportive space for individuals passionate about Python programming." />
-    <meta name="twitter:image" content="./src/assets/opengraph/og-image.png" />
+    <meta name="twitter:image" content="https://pythoncameroon.org/og-image.png" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Données structurées -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Python Cameroon",
+      "url": "https://pythoncameroon.org/",
+      "logo": "https://pythoncameroon.org/web-app-manifest-512x512.png",
+      "email": "organizers@pythoncameroon.org",
+      "description": "A vibrant and supportive community for individuals passionate about Python programming in Cameroon.",
+      "sameAs": [
+        "https://github.com/pythoncameroon",
+        "https://x.com/pythoncameroon",
+        "https://linkedin.com/company/PythonCameroon",
+        "https://www.youtube.com/@PythonCameroon",
+        "https://discord.gg/TWVCKCe3Dt"
+      ]
+    }
+    </script>
+
+    <!-- Fonts : auto-hébergées via @fontsource, importées dans src/main.tsx (AUDIT.md P6) -->
 </head>
 
 <body>
